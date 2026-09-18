@@ -58,7 +58,7 @@ I don't stop at theory — I design data architecture, build real pipelines, and
 ```python
 class HuynhTheHy:
     role       = "Data & AI Enthusiast | Future IT Project Manager"
-    university = "UT-HCMC — Faculty of IT"
+    university = "UTH-HCMC — Faculty of IT"
     student_id = "051205009083"
     focus      = ["Data Engineering", "Machine Learning", "Deep Learning"]
     philosophy = "Structured code. Clean data. Clear decisions."
