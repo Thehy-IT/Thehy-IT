@@ -130,7 +130,7 @@ Neural network architectures applied to computer vision and NLP.
 
 **Tools & Infrastructure**
 
-<img src="https://skillicons.dev/icons?i=git,github,vscode,docker&theme=dark" height="42"/>
+<img src="https://skillicons.dev/icons?i=git,github,vscode,docker,mint,gcp&theme=dark" height="42"/>
 
 </div>
 
