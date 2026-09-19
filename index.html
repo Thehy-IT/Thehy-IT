@@ -256,7 +256,6 @@
         <div class="specializations-grid">
           <div class="spec-card tilt-card">
             <div>
-              <div class="spec-icon" aria-hidden="true">🗄️</div>
               <h3 class="spec-title">Data Engineering</h3>
               <p class="spec-desc">
                 Thiết kế CSDL chuẩn hóa 3NF, phân tầng hot/cold cache, tối ưu hóa truy vấn phức tạp và thiết kế pipeline ETL tự động.
@@ -272,7 +271,6 @@
 
           <div class="spec-card tilt-card">
             <div>
-              <div class="spec-icon" aria-hidden="true">🔍</div>
               <h3 class="spec-title">Data Mining</h3>
               <p class="spec-desc">
                 Khai phá tri thức từ tập dữ liệu lớn, phân tích luật kết hợp, phân cụm khách hàng và nhận diện hành vi dị thường.
@@ -288,7 +286,6 @@
 
           <div class="spec-card tilt-card">
             <div>
-              <div class="spec-icon" aria-hidden="true">🤖</div>
               <h3 class="spec-title">Machine Learning</h3>
               <p class="spec-desc">
                 Huấn luyện, tinh chỉnh siêu tham số và đánh giá các mô hình học có giám sát/không giám sát với scikit-learn.
@@ -304,7 +301,6 @@
 
           <div class="spec-card tilt-card">
             <div>
-              <div class="spec-icon" aria-hidden="true">🧬</div>
               <h3 class="spec-title">Deep Learning</h3>
               <p class="spec-desc">
                 Kiến trúc mạng nơ-ron đa lớp, mạng tích chập (CNN) ứng dụng trong xử lý hình ảnh y tế chuẩn DICOM và thị giác máy tính.
@@ -956,8 +952,8 @@
 
   </div>
 
-  <!-- ================= INTERACTIVE MASCOT: TENSORBOT (Linh vật nhìn theo chuột) ================= -->
-  <aside id="tensor-mascot-widget" aria-label="Linh vật tương tác TensorBot">
+  <!-- ================= INTERACTIVE 3D MASCOT: TENSORBOT ================= -->
+  <aside id="tensor-mascot-widget" aria-label="Linh vật trợ lý 3D TensorBot">
     <!-- Minimize / Expand Toggle Button -->
     <button id="btn-toggle-mascot" class="mascot-toggle-btn" type="button" aria-label="Thu nhỏ hoặc mở rộng linh vật" title="Thu nhỏ / Mở rộng linh vật">
       <span class="toggle-symbol">−</span>
@@ -970,36 +966,80 @@
       <span class="compact-eye">●</span>
     </div>
 
+    <!-- Levitation & 3D Stage -->
     <div class="mascot-container">
       
+      <!-- Realistic 3D Ground Drop-Shadow with Blur & Levitation Breathing -->
+      <div class="mascot-ground-shadow" aria-hidden="true"></div>
+
       <!-- Speech Bubble -->
       <div class="mascot-speech-bubble" role="status" aria-live="polite">
+        <div class="speech-bot-header">
+          <span class="speech-bot-tag">TENSORBOT // TRỢ LÝ AI 3D</span>
+        </div>
         <p class="mascot-speech-text">Chào bạn! Tôi là TensorBot, linh vật trợ lý AI của Huỳnh Thế Hy! 👋</p>
       </div>
 
-      <!-- 3D Mascot Head & Body -->
-      <div class="mascot-head" title="Nhấn vào tôi để trò chuyện!">
+      <!-- 3D Mascot Entity with Dynamic Cursor Tilt & Specular Lighting -->
+      <div class="mascot-avatar" id="mascot-avatar" title="Nhấn vào tôi để trò chuyện!">
         
-        <!-- Antenna with pulsing glow -->
+        <!-- Antenna with Signal Waves & High-Luminance Beacon -->
         <div class="mascot-antenna">
+          <div class="antenna-rod"></div>
           <div class="antenna-light"></div>
+          <div class="antenna-beacon-ring"></div>
         </div>
 
-        <!-- Visor with dynamic tracking eyes -->
-        <div class="mascot-visor">
-          <div class="mascot-eye mascot-eye-left">
-            <div class="pupil"></div>
-          </div>
-          <div class="mascot-eye mascot-eye-right">
-            <div class="pupil"></div>
-          </div>
+        <!-- Left and Right Cyber Ear Pods with Audio Neon Rings -->
+        <div class="mascot-ear mascot-ear-left">
+          <div class="ear-core"></div>
+        </div>
+        <div class="mascot-ear mascot-ear-right">
+          <div class="ear-core"></div>
         </div>
 
-        <!-- Animated smile mouth -->
-        <div class="mascot-mouth"></div>
+        <!-- 3D Helmet Head -->
+        <div class="mascot-head">
+          <!-- Dynamic Top Specular Highlight Glare -->
+          <div class="helmet-highlight"></div>
+          <!-- Bevel Chiseled Rim Light -->
+          <div class="helmet-rim-glow"></div>
 
-        <!-- Floating core status orb -->
-        <div class="mascot-orb"></div>
+          <!-- Glossy Curved Visor with HUD Reflections -->
+          <div class="mascot-visor">
+            <div class="visor-reflection"></div>
+            <div class="mascot-eye mascot-eye-left">
+              <div class="eye-iris">
+                <div class="pupil"></div>
+              </div>
+            </div>
+            <div class="mascot-eye mascot-eye-right">
+              <div class="eye-iris">
+                <div class="pupil"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Expressive Mouth -->
+          <div class="mascot-mouth"></div>
+
+          <!-- Glowing Cheek Status Indicators -->
+          <div class="mascot-cheek mascot-cheek-left"></div>
+          <div class="mascot-cheek mascot-cheek-right"></div>
+        </div>
+
+        <!-- Floating 3D Mini Torso with Glowing Quantum Arc Reactor -->
+        <div class="mascot-torso">
+          <div class="torso-plate"></div>
+          <div class="mascot-reactor-core">
+            <div class="reactor-pulse"></div>
+          </div>
+          <div class="mascot-arm mascot-arm-left"></div>
+          <div class="mascot-arm mascot-arm-right"></div>
+          <!-- Plasma Jet Hover Thruster Glow -->
+          <div class="mascot-thruster"></div>
+        </div>
+
       </div>
 
     </div>

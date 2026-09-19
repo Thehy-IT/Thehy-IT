@@ -15,7 +15,9 @@ class TensorMascot {
     this.container = document.getElementById(containerId);
     if (!this.container) return;
 
+    this.avatar = this.container.querySelector('.mascot-avatar') || this.container.querySelector('.mascot-head');
     this.head = this.container.querySelector('.mascot-head');
+    this.highlight = this.container.querySelector('.helmet-highlight');
     this.eyeLeft = this.container.querySelector('.mascot-eye-left .pupil');
     this.eyeRight = this.container.querySelector('.mascot-eye-right .pupil');
     this.mouth = this.container.querySelector('.mascot-mouth');
@@ -78,9 +80,10 @@ class TensorMascot {
       }
     }, { passive: true });
 
-    // Mascot Head Click Reaction
-    if (this.head) {
-      this.head.addEventListener('click', (e) => {
+    // Mascot Click Reaction
+    const clickTarget = this.avatar || this.head;
+    if (clickTarget) {
+      clickTarget.addEventListener('click', (e) => {
         e.stopPropagation();
         this.triggerReaction();
       });
@@ -255,6 +258,13 @@ class TensorMascot {
     // Apply 3D Head Transformation
     if (this.head && !this.isSpinning) {
       this.head.style.transform = `perspective(600px) rotateX(${this.currentRotation.x.toFixed(2)}deg) rotateY(${this.currentRotation.y.toFixed(2)}deg)`;
+    }
+
+    // Dynamic light reflection glare shift on helmet highlight based on mouse angle
+    if (this.highlight) {
+      const glintX = (-normX * 5).toFixed(1);
+      const glintY = (-normY * 3).toFixed(1);
+      this.highlight.style.transform = `translate(${glintX}px, ${glintY}px) rotate(-8deg)`;
     }
 
     // Apply Pupil Translation

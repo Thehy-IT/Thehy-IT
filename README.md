@@ -22,7 +22,7 @@
 &nbsp;
 [![GitHub](https://img.shields.io/badge/Thehy--IT-181717?style=for-the-badge&logo=github&logoColor=white&labelColor=1a1a2e)](https://github.com/Thehy-IT)
 &nbsp;
-[![UT-HCMC](https://img.shields.io/badge/UT--HCMC-051205009083-0EA5E9?style=for-the-badge&logo=googlescholar&logoColor=white&labelColor=1a1a2e)](https://lequocdung64.github.io/Members/051205009083_HuynhTheHy.html)
+[![UTH-HCMC](https://img.shields.io/badge/UT--HCMC-051205009083-0EA5E9?style=for-the-badge&logo=googlescholar&logoColor=white&labelColor=1a1a2e)](https://lequocdung64.github.io/Members/051205009083_HuynhTheHy.html)
 
 <img src="https://komarev.com/ghpvc/?username=Thehy-IT&label=Profile+views&color=0EA5E9&style=flat-square" alt="Profile views" />
 
@@ -44,7 +44,7 @@
 
 > *"Data doesn't lie — you just have to know how to listen to it."*
 
-I'm **Huỳnh Thế Hy**, an Information Technology student at **University of Transport HCMC (UT-HCMC)**, building toward **Data & AI** with a longer-term goal of becoming an **IT Project Manager with a strong technical foundation**.
+I'm **Huỳnh Thế Hy**, an Information Technology student at **University of Transport HCMC (UTH-HCMC)**, building toward **Data & AI** with a longer-term goal of becoming an **IT Project Manager with a strong technical foundation**.
 
 I don't stop at theory — I design data architecture, build real pipelines, and turn messy datasets into decisions people can act on. Every project is a problem to be solved correctly, not just finished.
 
