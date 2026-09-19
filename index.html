@@ -458,206 +458,257 @@
           </p>
         </div>
 
-        <div class="projects-grid">
-          <!-- Project 1 -->
-          <article class="tilt-card" aria-labelledby="p1-title">
-            <div class="project-category">SYSTEM DESIGN & DATA PIPELINE</div>
-            <h3 id="p1-title" class="project-title">Social Media Crawler & Tiered NoSQL Storage</h3>
-            <p class="project-desc">
-              Hệ thống thu thập dữ liệu profile mạng xã hội tự động, xử lý và lưu trữ phân cấp 5 tầng NoSQL (Redis Hot Cache → MongoDB Document Store).
-            </p>
-            <ul class="project-highlights">
-              <li class="project-highlight-item">Phân tầng: Hot cache (Redis) → Document store (MongoDB) → Phân tích</li>
-              <li class="project-highlight-item">Cơ chế mock fallback tự động giúp hệ thống không gián đoạn khi service gặp sự cố</li>
-              <li class="project-highlight-item">Đồ án môn Big Data & Ứng dụng — hướng dẫn bởi Th.S Hàn Trung Định (UTH)</li>
-            </ul>
-            <div class="project-footer">
-              <div class="project-tech-badges">
-                <span class="tech-badge">Python</span>
-                <span class="tech-badge">MongoDB</span>
-                <span class="tech-badge">Redis</span>
-                <span class="tech-badge">NoSQL</span>
-              </div>
-              <a href="https://github.com/Thehy-IT/course-bda-lab-nosql-crawler" target="_blank" rel="noopener noreferrer" class="project-link">
-                Xem Repo ↗
-              </a>
+        <!-- Continuous Horizontal Carousel Component -->
+        <div class="projects-carousel-wrapper" id="projects-carousel-wrapper" role="region" aria-label="Băng chuyền dự án kỹ thuật nổi bật">
+          
+          <!-- Top Controls Bar -->
+          <div class="carousel-header-controls">
+            <div class="carousel-status-badge">
+              <span class="pulse-indicator"></span>
+              <span id="carousel-status-text" class="carousel-live-text">STREAMING SHOWCASE // 8 DỰ ÁN KỸ THUẬT</span>
             </div>
-          </article>
 
-          <!-- Project 2 -->
-          <article class="tilt-card" aria-labelledby="p2-title">
-            <div class="project-category">HEALTHCARE AI & FULLSTACK</div>
-            <h3 id="p2-title" class="project-title">AI-Assisted DICOM System</h3>
-            <p class="project-desc">
-              Hệ thống quản lý hình ảnh y tế DICOM chuẩn quốc tế tích hợp mô hình AI hỗ trợ bác sĩ chẩn đoán tự động trên ảnh X-Quang / CT.
-            </p>
-            <ul class="project-highlights">
-              <li class="project-highlight-item">Tích hợp mô hình AI phân tích ảnh y tế vào quy trình chẩn đoán</li>
-              <li class="project-highlight-item">Kiến trúc fullstack từ cơ sở dữ liệu T-SQL đến giao diện người dùng</li>
-              <li class="project-highlight-item">Xử lý định dạng tệp chuẩn DICOM ngành y tế</li>
-            </ul>
-            <div class="project-footer">
-              <div class="project-tech-badges">
-                <span class="tech-badge">AI / ML</span>
-                <span class="tech-badge">DICOM</span>
-                <span class="tech-badge">T-SQL</span>
-                <span class="tech-badge">Fullstack</span>
-              </div>
-              <a href="https://github.com/Thehy-IT/capstone-dicom-ai-diagnosis" target="_blank" rel="noopener noreferrer" class="project-link">
-                Xem Repo ↗
-              </a>
+            <div class="carousel-nav-buttons">
+              <button id="btn-carousel-prev" class="carousel-arrow-btn" type="button" aria-label="Cuộn sang trái" title="Dự án trước">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <button id="btn-carousel-pause" class="carousel-arrow-btn" type="button" aria-label="Tạm dừng / Tiếp tục cuộn" title="Tạm dừng / Tiếp tục cuộn">
+                <span class="carousel-pause-icon">⏸</span>
+              </button>
+              <button id="btn-carousel-next" class="carousel-arrow-btn" type="button" aria-label="Cuộn sang phải" title="Dự án tiếp theo">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
             </div>
-          </article>
+          </div>
 
-          <!-- Project 3 -->
-          <article class="tilt-card" aria-labelledby="p3-title">
-            <div class="project-category">MACRO DATA & ANALYTICS</div>
-            <h3 id="p3-title" class="project-title">ASEAN Regional Overview Analysis</h3>
-            <p class="project-desc">
-              Dự án phân tích toàn cảnh kinh tế - xã hội khu vực Đông Nam Á (ASEAN). Tích hợp tổng hợp dữ liệu, làm sạch tự động, EDA và báo cáo trực quan hóa đa chiều.
-            </p>
-            <ul class="project-highlights">
-              <li class="project-highlight-item">Phân tích chuyên sâu chỉ số kinh tế vĩ mô & xu hướng xã hội 10 quốc gia</li>
-              <li class="project-highlight-item">Xây dựng pipeline làm sạch và chuẩn hóa dataset quy mô khu vực</li>
-              <li class="project-highlight-item">Báo cáo phân tích dữ liệu toàn diện với trực quan hóa tương tác</li>
-            </ul>
-            <div class="project-footer">
-              <div class="project-tech-badges">
-                <span class="tech-badge">Python</span>
-                <span class="tech-badge">Pandas</span>
-                <span class="tech-badge">EDA</span>
-                <span class="tech-badge">Data Analysis</span>
+          <!-- Viewport with Side Vignette & Mask -->
+          <div class="projects-carousel-viewport" id="projects-carousel-viewport">
+            <div class="projects-carousel-track" id="projects-carousel-track">
+              <!-- Item 1 -->
+              <div class="carousel-item" data-index="0">
+                <article class="tilt-card" aria-labelledby="p1-title">
+                  <div class="project-category">SYSTEM DESIGN & DATA PIPELINE</div>
+                  <h3 id="p1-title" class="project-title">Social Media Crawler & Tiered NoSQL Storage</h3>
+                  <p class="project-desc">
+                    Hệ thống thu thập dữ liệu profile mạng xã hội tự động, xử lý và lưu trữ phân cấp 5 tầng NoSQL (Redis Hot Cache → MongoDB Document Store).
+                  </p>
+                  <ul class="project-highlights">
+                    <li class="project-highlight-item">Phân tầng: Hot cache (Redis) → Document store (MongoDB) → Phân tích</li>
+                    <li class="project-highlight-item">Cơ chế mock fallback tự động giúp hệ thống không gián đoạn khi service gặp sự cố</li>
+                    <li class="project-highlight-item">Đồ án môn Big Data & Ứng dụng — hướng dẫn bởi Th.S Hàn Trung Định (UTH)</li>
+                  </ul>
+                  <div class="project-footer">
+                    <div class="project-tech-badges">
+                      <span class="tech-badge">Python</span>
+                      <span class="tech-badge">MongoDB</span>
+                      <span class="tech-badge">Redis</span>
+                      <span class="tech-badge">NoSQL</span>
+                    </div>
+                    <a href="https://github.com/Thehy-IT/course-bda-lab-nosql-crawler" target="_blank" rel="noopener noreferrer" class="project-link">
+                      Xem Repo ↗
+                    </a>
+                  </div>
+                </article>
               </div>
-              <a href="https://github.com/Thehy-IT/capstone-asean_overview_analysis" target="_blank" rel="noopener noreferrer" class="project-link">
-                Xem Repo ↗
-              </a>
-            </div>
-          </article>
 
-          <!-- Project 4 -->
-          <article class="tilt-card" aria-labelledby="p4-title">
-            <div class="project-category">DEEP LEARNING & COMPUTER VISION</div>
-            <h3 id="p4-title" class="project-title">Brain Tumor MRI AI Detection</h3>
-            <p class="project-desc">
-              Đồ án thực tế Khoa học Dữ liệu: Xây dựng và huấn luyện mô hình học sâu (CNN / Deep Learning) nhằm phát hiện và dự đoán chính xác khối u não từ ảnh chụp cộng hưởng từ MRI.
-            </p>
-            <ul class="project-highlights">
-              <li class="project-highlight-item">Tiền xử lý ảnh y tế chuyên sâu: chuẩn hóa cường độ, lọc nhiễu và data augmentation</li>
-              <li class="project-highlight-item">Tối ưu hóa kiến trúc Convolutional Neural Network (CNN) đạt độ chính xác cao</li>
-              <li class="project-highlight-item">Jupyter Notebook minh chứng thực nghiệm và trực quan hóa feature maps</li>
-            </ul>
-            <div class="project-footer">
-              <div class="project-tech-badges">
-                <span class="tech-badge">Deep Learning</span>
-                <span class="tech-badge">CNN</span>
-                <span class="tech-badge">Python</span>
-                <span class="tech-badge">Jupyter</span>
+              <!-- Item 2 -->
+              <div class="carousel-item" data-index="1">
+                <article class="tilt-card" aria-labelledby="p2-title">
+                  <div class="project-category">HEALTHCARE AI & FULLSTACK</div>
+                  <h3 id="p2-title" class="project-title">AI-Assisted DICOM System</h3>
+                  <p class="project-desc">
+                    Hệ thống quản lý hình ảnh y tế DICOM chuẩn quốc tế tích hợp mô hình AI hỗ trợ bác sĩ chẩn đoán tự động trên ảnh X-Quang / CT.
+                  </p>
+                  <ul class="project-highlights">
+                    <li class="project-highlight-item">Tích hợp mô hình AI phân tích ảnh y tế vào quy trình chẩn đoán</li>
+                    <li class="project-highlight-item">Kiến trúc fullstack từ cơ sở dữ liệu T-SQL đến giao diện người dùng</li>
+                    <li class="project-highlight-item">Xử lý định dạng tệp chuẩn DICOM ngành y tế</li>
+                  </ul>
+                  <div class="project-footer">
+                    <div class="project-tech-badges">
+                      <span class="tech-badge">AI / ML</span>
+                      <span class="tech-badge">DICOM</span>
+                      <span class="tech-badge">T-SQL</span>
+                      <span class="tech-badge">Fullstack</span>
+                    </div>
+                    <a href="https://github.com/Thehy-IT/capstone-dicom-ai-diagnosis" target="_blank" rel="noopener noreferrer" class="project-link">
+                      Xem Repo ↗
+                    </a>
+                  </div>
+                </article>
               </div>
-              <a href="https://github.com/Thehy-IT/capstone-brain-tumor-mri" target="_blank" rel="noopener noreferrer" class="project-link">
-                Xem Repo ↗
-              </a>
-            </div>
-          </article>
 
-          <!-- Project 5 -->
-          <article class="tilt-card" aria-labelledby="p5-title">
-            <div class="project-category">BIG DATA & STREAMING ANALYTICS</div>
-            <h3 id="p5-title" class="project-title">Banking Fraud Detection (SBDA-SA)</h3>
-            <p class="project-desc">
-              Đồ án cuối kỳ Big Data và Ứng dụng: Xây dựng giải pháp Streaming Big Data Analytics (SBDA) phân tích luồng dữ liệu thời gian thực và phát hiện bất thường giao dịch gian lận ngân hàng.
-            </p>
-            <ul class="project-highlights">
-              <li class="project-highlight-item">Xử lý luồng dữ liệu giao dịch tài chính thời gian thực (Real-time Stream)</li>
-              <li class="project-highlight-item">Tích hợp mô hình phát hiện gian lận và phân tích sắc thái dữ liệu</li>
-              <li class="project-highlight-item">Kiến trúc dữ liệu phân tán quy mô lớn đảm bảo độ trễ thấp</li>
-            </ul>
-            <div class="project-footer">
-              <div class="project-tech-badges">
-                <span class="tech-badge">Big Data</span>
-                <span class="tech-badge">Streaming</span>
-                <span class="tech-badge">Python</span>
-                <span class="tech-badge">Fintech</span>
+              <!-- Item 3 -->
+              <div class="carousel-item" data-index="2">
+                <article class="tilt-card" aria-labelledby="p3-title">
+                  <div class="project-category">MACRO DATA & ANALYTICS</div>
+                  <h3 id="p3-title" class="project-title">ASEAN Regional Overview Analysis</h3>
+                  <p class="project-desc">
+                    Dự án phân tích toàn cảnh kinh tế - xã hội khu vực Đông Nam Á (ASEAN). Tích hợp tổng hợp dữ liệu, làm sạch tự động, EDA và báo cáo trực quan hóa đa chiều.
+                  </p>
+                  <ul class="project-highlights">
+                    <li class="project-highlight-item">Phân tích chuyên sâu chỉ số kinh tế vĩ mô & xu hướng xã hội 10 quốc gia</li>
+                    <li class="project-highlight-item">Xây dựng pipeline làm sạch và chuẩn hóa dataset quy mô khu vực</li>
+                    <li class="project-highlight-item">Báo cáo phân tích dữ liệu toàn diện với trực quan hóa tương tác</li>
+                  </ul>
+                  <div class="project-footer">
+                    <div class="project-tech-badges">
+                      <span class="tech-badge">Python</span>
+                      <span class="tech-badge">Pandas</span>
+                      <span class="tech-badge">EDA</span>
+                      <span class="tech-badge">Data Analysis</span>
+                    </div>
+                    <a href="https://github.com/Thehy-IT/capstone-asean_overview_analysis" target="_blank" rel="noopener noreferrer" class="project-link">
+                      Xem Repo ↗
+                    </a>
+                  </div>
+                </article>
               </div>
-              <a href="https://github.com/Thehy-IT/capstone-banking-fraud-detection" target="_blank" rel="noopener noreferrer" class="project-link">
-                Xem Repo ↗
-              </a>
-            </div>
-          </article>
 
-          <!-- Project 6 -->
-          <article class="tilt-card" aria-labelledby="p6-title">
-            <div class="project-category">DATA LAKEHOUSE ARCHITECTURE</div>
-            <h3 id="p6-title" class="project-title">E-Commerce Enterprise Lakehouse</h3>
-            <p class="project-desc">
-              Xây dựng và thiết kế hệ thống Data Lakehouse cho công ty thương mại điện tử: hợp nhất khả năng lưu trữ linh hoạt của Data Lake với năng lực phân tích của Data Warehouse.
-            </p>
-            <ul class="project-highlights">
-              <li class="project-highlight-item">Kiến trúc phân tầng dữ liệu Medallion Architecture (Bronze - Silver - Gold)</li>
-              <li class="project-highlight-item">Xử lý và chuyển đổi dữ liệu phục vụ Business Intelligence và Machine Learning</li>
-              <li class="project-highlight-item">Tối ưu hóa schema và phân vùng lưu trữ cho dữ liệu đơn hàng & người dùng</li>
-            </ul>
-            <div class="project-footer">
-              <div class="project-tech-badges">
-                <span class="tech-badge">Lakehouse</span>
-                <span class="tech-badge">Big Data</span>
-                <span class="tech-badge">ETL / ELT</span>
-                <span class="tech-badge">Jupyter</span>
+              <!-- Item 4 -->
+              <div class="carousel-item" data-index="3">
+                <article class="tilt-card" aria-labelledby="p4-title">
+                  <div class="project-category">DEEP LEARNING & COMPUTER VISION</div>
+                  <h3 id="p4-title" class="project-title">Brain Tumor MRI AI Detection</h3>
+                  <p class="project-desc">
+                    Đồ án thực tế Khoa học Dữ liệu: Xây dựng và huấn luyện mô hình học sâu (CNN / Deep Learning) nhằm phát hiện và dự đoán chính xác khối u não từ ảnh chụp cộng hưởng từ MRI.
+                  </p>
+                  <ul class="project-highlights">
+                    <li class="project-highlight-item">Tiền xử lý ảnh y tế chuyên sâu: chuẩn hóa cường độ, lọc nhiễu và data augmentation</li>
+                    <li class="project-highlight-item">Tối ưu hóa kiến trúc Convolutional Neural Network (CNN) đạt độ chính xác cao</li>
+                    <li class="project-highlight-item">Jupyter Notebook minh chứng thực nghiệm và trực quan hóa feature maps</li>
+                  </ul>
+                  <div class="project-footer">
+                    <div class="project-tech-badges">
+                      <span class="tech-badge">Deep Learning</span>
+                      <span class="tech-badge">CNN</span>
+                      <span class="tech-badge">Python</span>
+                      <span class="tech-badge">Jupyter</span>
+                    </div>
+                    <a href="https://github.com/Thehy-IT/capstone-brain-tumor-mri" target="_blank" rel="noopener noreferrer" class="project-link">
+                      Xem Repo ↗
+                    </a>
+                  </div>
+                </article>
               </div>
-              <a href="https://github.com/Thehy-IT/course-bda-lab-lakehouse" target="_blank" rel="noopener noreferrer" class="project-link">
-                Xem Repo ↗
-              </a>
-            </div>
-          </article>
 
-          <!-- Project 7 -->
-          <article class="tilt-card" aria-labelledby="p7-title">
-            <div class="project-category">DATABASE DESIGN & 3NF</div>
-            <h3 id="p7-title" class="project-title">HR & Payroll Management (DBMS)</h3>
-            <p class="project-desc">
-              Hệ thống quản lý nhân sự và tính lương tự động với cơ sở dữ liệu được chuẩn hóa nghiêm ngặt đến dạng chuẩn 3 (3NF), giải quyết bài toán quản trị HRM toàn diện.
-            </p>
-            <ul class="project-highlights">
-              <li class="project-highlight-item">Thiết kế schema chuẩn hóa 3NF, loại bỏ hoàn toàn dị thường dư thừa dữ liệu</li>
-              <li class="project-highlight-item">Sử dụng Stored Procedures và Triggers xử lý nghiệp vụ tính lương phức tạp</li>
-              <li class="project-highlight-item">Sơ đồ thực thể quan hệ ERD và tài liệu thiết kế hệ thống chi tiết</li>
-            </ul>
-            <div class="project-footer">
-              <div class="project-tech-badges">
-                <span class="tech-badge">TypeScript</span>
-                <span class="tech-badge">MySQL</span>
-                <span class="tech-badge">3NF</span>
-                <span class="tech-badge">DBMS</span>
+              <!-- Item 5 -->
+              <div class="carousel-item" data-index="4">
+                <article class="tilt-card" aria-labelledby="p5-title">
+                  <div class="project-category">BIG DATA & STREAMING ANALYTICS</div>
+                  <h3 id="p5-title" class="project-title">Banking Fraud Detection (SBDA-SA)</h3>
+                  <p class="project-desc">
+                    Đồ án cuối kỳ Big Data và Ứng dụng: Xây dựng giải pháp Streaming Big Data Analytics (SBDA) phân tích luồng dữ liệu thời gian thực và phát hiện bất thường giao dịch gian lận ngân hàng.
+                  </p>
+                  <ul class="project-highlights">
+                    <li class="project-highlight-item">Xử lý luồng dữ liệu giao dịch tài chính thời gian thực (Real-time Stream)</li>
+                    <li class="project-highlight-item">Tích hợp mô hình phát hiện gian lận và phân tích sắc thái dữ liệu</li>
+                    <li class="project-highlight-item">Kiến trúc dữ liệu phân tán quy mô lớn đảm bảo độ trễ thấp</li>
+                  </ul>
+                  <div class="project-footer">
+                    <div class="project-tech-badges">
+                      <span class="tech-badge">Big Data</span>
+                      <span class="tech-badge">Streaming</span>
+                      <span class="tech-badge">Python</span>
+                      <span class="tech-badge">Fintech</span>
+                    </div>
+                    <a href="https://github.com/Thehy-IT/capstone-banking-fraud-detection" target="_blank" rel="noopener noreferrer" class="project-link">
+                      Xem Repo ↗
+                    </a>
+                  </div>
+                </article>
               </div>
-              <a href="https://github.com/Thehy-IT/capstone-hr-payroll-system" target="_blank" rel="noopener noreferrer" class="project-link">
-                Xem Repo ↗
-              </a>
-            </div>
-          </article>
 
-          <!-- Project 8 -->
-          <article class="tilt-card" aria-labelledby="p8-title">
-            <div class="project-category">EDTECH & OOP ARCHITECTURE</div>
-            <h3 id="p8-title" class="project-title">Quiz & Examination Platform</h3>
-            <p class="project-desc">
-              Hệ thống quản lý ngân hàng câu hỏi, tổ chức thi trắc nghiệm và chấm điểm tự động, quản lý tài nguyên và kết quả thi có cấu trúc rõ ràng.
-            </p>
-            <ul class="project-highlights">
-              <li class="project-highlight-item">Quản lý kho tài nguyên câu hỏi, đề thi và cấu trúc dữ liệu khoa học</li>
-              <li class="project-highlight-item">Thuật toán xáo trộn câu hỏi ngẫu nhiên và chấm điểm tự động</li>
-              <li class="project-highlight-item">Phân quyền người dùng và thống kê năng lực học tập trực quan</li>
-            </ul>
-            <div class="project-footer">
-              <div class="project-tech-badges">
-                <span class="tech-badge">Python</span>
-                <span class="tech-badge">OOP</span>
-                <span class="tech-badge">Database</span>
-                <span class="tech-badge">EdTech</span>
+              <!-- Item 6 -->
+              <div class="carousel-item" data-index="5">
+                <article class="tilt-card" aria-labelledby="p6-title">
+                  <div class="project-category">DATA LAKEHOUSE ARCHITECTURE</div>
+                  <h3 id="p6-title" class="project-title">E-Commerce Enterprise Lakehouse</h3>
+                  <p class="project-desc">
+                    Xây dựng và thiết kế hệ thống Data Lakehouse cho công ty thương mại điện tử: hợp nhất khả năng lưu trữ linh hoạt của Data Lake với năng lực phân tích của Data Warehouse.
+                  </p>
+                  <ul class="project-highlights">
+                    <li class="project-highlight-item">Kiến trúc phân tầng dữ liệu Medallion Architecture (Bronze - Silver - Gold)</li>
+                    <li class="project-highlight-item">Xử lý và chuyển đổi dữ liệu phục vụ Business Intelligence và Machine Learning</li>
+                    <li class="project-highlight-item">Tối ưu hóa schema và phân vùng lưu trữ cho dữ liệu đơn hàng & người dùng</li>
+                  </ul>
+                  <div class="project-footer">
+                    <div class="project-tech-badges">
+                      <span class="tech-badge">Lakehouse</span>
+                      <span class="tech-badge">Big Data</span>
+                      <span class="tech-badge">ETL / ELT</span>
+                      <span class="tech-badge">Jupyter</span>
+                    </div>
+                    <a href="https://github.com/Thehy-IT/course-bda-lab-lakehouse" target="_blank" rel="noopener noreferrer" class="project-link">
+                      Xem Repo ↗
+                    </a>
+                  </div>
+                </article>
               </div>
-              <a href="https://github.com/Thehy-IT/capstone-quiz-examination-system" target="_blank" rel="noopener noreferrer" class="project-link">
-                Xem Repo ↗
-              </a>
+
+              <!-- Item 7 -->
+              <div class="carousel-item" data-index="6">
+                <article class="tilt-card" aria-labelledby="p7-title">
+                  <div class="project-category">DATABASE DESIGN & 3NF</div>
+                  <h3 id="p7-title" class="project-title">HR & Payroll Management (DBMS)</h3>
+                  <p class="project-desc">
+                    Hệ thống quản lý nhân sự và tính lương tự động với cơ sở dữ liệu được chuẩn hóa nghiêm ngặt đến dạng chuẩn 3 (3NF), giải quyết bài toán quản trị HRM toàn diện.
+                  </p>
+                  <ul class="project-highlights">
+                    <li class="project-highlight-item">Thiết kế schema chuẩn hóa 3NF, loại bỏ hoàn toàn dị thường dư thừa dữ liệu</li>
+                    <li class="project-highlight-item">Sử dụng Stored Procedures và Triggers xử lý nghiệp vụ tính lương phức tạp</li>
+                    <li class="project-highlight-item">Sơ đồ thực thể quan hệ ERD và tài liệu thiết kế hệ thống chi tiết</li>
+                  </ul>
+                  <div class="project-footer">
+                    <div class="project-tech-badges">
+                      <span class="tech-badge">TypeScript</span>
+                      <span class="tech-badge">MySQL</span>
+                      <span class="tech-badge">3NF</span>
+                      <span class="tech-badge">DBMS</span>
+                    </div>
+                    <a href="https://github.com/Thehy-IT/capstone-hr-payroll-system" target="_blank" rel="noopener noreferrer" class="project-link">
+                      Xem Repo ↗
+                    </a>
+                  </div>
+                </article>
+              </div>
+
+              <!-- Item 8 -->
+              <div class="carousel-item" data-index="7">
+                <article class="tilt-card" aria-labelledby="p8-title">
+                  <div class="project-category">EDTECH & OOP ARCHITECTURE</div>
+                  <h3 id="p8-title" class="project-title">Quiz & Examination Platform</h3>
+                  <p class="project-desc">
+                    Hệ thống quản lý ngân hàng câu hỏi, tổ chức thi trắc nghiệm và chấm điểm tự động, quản lý tài nguyên và kết quả thi có cấu trúc rõ ràng.
+                  </p>
+                  <ul class="project-highlights">
+                    <li class="project-highlight-item">Quản lý kho tài nguyên câu hỏi, đề thi và cấu trúc dữ liệu khoa học</li>
+                    <li class="project-highlight-item">Thuật toán xáo trộn câu hỏi ngẫu nhiên và chấm điểm tự động</li>
+                    <li class="project-highlight-item">Phân quyền người dùng và thống kê năng lực học tập trực quan</li>
+                  </ul>
+                  <div class="project-footer">
+                    <div class="project-tech-badges">
+                      <span class="tech-badge">Python</span>
+                      <span class="tech-badge">OOP</span>
+                      <span class="tech-badge">Database</span>
+                      <span class="tech-badge">EdTech</span>
+                    </div>
+                    <a href="https://github.com/Thehy-IT/capstone-quiz-examination-system" target="_blank" rel="noopener noreferrer" class="project-link">
+                      Xem Repo ↗
+                    </a>
+                  </div>
+                </article>
+              </div>
             </div>
-          </article>
+          </div>
+
+          <!-- Bottom Interaction Hint -->
+          <div class="carousel-bottom-bar">
+            <span class="carousel-scroll-hint">
+              <span class="hint-icon">⇆</span> Kéo chuột, vuốt ngang hoặc sử dụng nút điều hướng để duyệt dự án
+            </span>
+          </div>
+
         </div>
       </section>
 

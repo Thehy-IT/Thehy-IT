@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAudioToggle();
   initSystemStats();
   init3DCardTilt();
+  initProjectsContinuousCarousel();
   initPipelineExplorer();
   initTerminalEmulator();
   initTechStackFilters();
@@ -94,6 +95,9 @@ function init3DCardTilt() {
   if (prefersReduced) return;
 
   cards.forEach(card => {
+    if (card._tiltInitialized) return;
+    card._tiltInitialized = true;
+
     // Create glare layer if not present
     let glare = card.querySelector('.card-glare');
     if (!glare) {
@@ -127,6 +131,250 @@ function init3DCardTilt() {
       glare.style.opacity = '0';
     });
   });
+}
+
+// --- 3.5. Continuous Horizontal Projects Carousel ---
+function initProjectsContinuousCarousel() {
+  const wrapper = document.getElementById('projects-carousel-wrapper');
+  const viewport = document.getElementById('projects-carousel-viewport');
+  const track = document.getElementById('projects-carousel-track');
+  if (!wrapper || !viewport || !track) return;
+
+  const originalItems = Array.from(track.querySelectorAll('.carousel-item'));
+  if (originalItems.length === 0) return;
+
+  // Clone items twice so we have 3 complete sets for infinite seamless wrapping
+  originalItems.forEach(item => {
+    const clone1 = item.cloneNode(true);
+    clone1.setAttribute('aria-hidden', 'true');
+    track.appendChild(clone1);
+  });
+  originalItems.forEach(item => {
+    const clone2 = item.cloneNode(true);
+    clone2.setAttribute('aria-hidden', 'true');
+    track.appendChild(clone2);
+  });
+
+  // Re-run tilt initialization on newly cloned cards
+  if (typeof init3DCardTilt === 'function') {
+    init3DCardTilt();
+  }
+
+  const allItems = Array.from(track.querySelectorAll('.carousel-item'));
+  const btnPrev = document.getElementById('btn-carousel-prev');
+  const btnNext = document.getElementById('btn-carousel-next');
+  const btnPause = document.getElementById('btn-carousel-pause');
+  const statusText = document.getElementById('carousel-status-text');
+
+  let currentX = 0;
+  let baseSpeed = 0.85; // smooth continuous velocity in px/frame
+  let isPaused = false;
+  let isHovered = false;
+  let isDragging = false;
+  let startPointerX = 0;
+  let dragStartX = 0;
+  let lastPointerX = 0;
+  let dragVelocity = 0;
+  let resumeTimer = null;
+
+  // Reduced motion preference
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) {
+    baseSpeed = 0;
+  }
+
+  function getStepWidth() {
+    if (originalItems.length === 0) return 360;
+    const firstRect = originalItems[0].getBoundingClientRect();
+    const style = window.getComputedStyle(track);
+    const gap = parseFloat(style.gap) || 28;
+    return firstRect.width + gap;
+  }
+
+  function getSingleSetWidth() {
+    return getStepWidth() * originalItems.length;
+  }
+
+  // Update card center scaling, brightness & depth of field
+  function updateCardFocus() {
+    const vpRect = viewport.getBoundingClientRect();
+    const vpCenter = vpRect.left + vpRect.width / 2;
+    const maxDist = vpRect.width * 0.52;
+
+    allItems.forEach(item => {
+      const cardRect = item.getBoundingClientRect();
+
+      // Skip heavy calculation if card is completely out of view
+      if (cardRect.right < vpRect.left - 180 || cardRect.left > vpRect.right + 180) {
+        item.style.transform = 'scale(0.82) translateY(8px)';
+        item.style.opacity = '0.25';
+        item.style.filter = 'blur(2px)';
+        item.classList.remove('is-center');
+        return;
+      }
+
+      const cardCenter = cardRect.left + cardRect.width / 2;
+      const dist = Math.abs(cardCenter - vpCenter);
+      const norm = Math.min(1, dist / maxDist);
+
+      // Smooth cosine bell curve (1.0 at exact center, 0.0 at edges)
+      const focus = 0.5 * (1 + Math.cos(norm * Math.PI));
+
+      const scale = 0.82 + 0.23 * focus; // 0.82 -> 1.05
+      const opacity = 0.32 + 0.68 * focus; // 0.32 -> 1.0
+      const blur = (1 - focus) * 1.5; // 1.5px -> 0px
+      const translateY = (1 - focus) * 8; // 8px -> 0px
+      const zIndex = Math.round(focus * 30) + 1;
+
+      item.style.transform = `scale(${scale.toFixed(3)}) translateY(${translateY.toFixed(1)}px)`;
+      item.style.opacity = opacity.toFixed(3);
+      item.style.zIndex = zIndex;
+      item.style.filter = blur > 0.2 ? `blur(${blur.toFixed(1)}px)` : 'none';
+
+      if (focus > 0.88) {
+        item.classList.add('is-center');
+      } else {
+        item.classList.remove('is-center');
+      }
+    });
+  }
+
+  // Main animation loop
+  function animate() {
+    const singleSetWidth = getSingleSetWidth();
+
+    if (!isPaused && !isHovered && !isDragging) {
+      currentX += baseSpeed;
+    }
+
+    // Smooth inertia deceleration when release drag
+    if (!isDragging && Math.abs(dragVelocity) > 0.05) {
+      currentX -= dragVelocity;
+      dragVelocity *= 0.92;
+    }
+
+    // Wrap around infinitely and seamlessly
+    if (singleSetWidth > 0) {
+      while (currentX >= singleSetWidth) {
+        currentX -= singleSetWidth;
+      }
+      while (currentX < 0) {
+        currentX += singleSetWidth;
+      }
+    }
+
+    track.style.transform = `translate3d(${-currentX.toFixed(2)}px, 0, 0)`;
+    updateCardFocus();
+
+    requestAnimationFrame(animate);
+  }
+
+  requestAnimationFrame(animate);
+
+  // --- Interaction Listeners ---
+
+  // Hover pause & resume
+  viewport.addEventListener('mouseenter', () => {
+    isHovered = true;
+    if (resumeTimer) clearTimeout(resumeTimer);
+  });
+
+  viewport.addEventListener('mouseleave', () => {
+    if (resumeTimer) clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(() => {
+      isHovered = false;
+    }, 800);
+  });
+
+  // Pointer drag (mouse & touch)
+  viewport.addEventListener('pointerdown', (e) => {
+    if (e.button !== 0 && e.pointerType === 'mouse') return;
+    isDragging = true;
+    startPointerX = e.clientX;
+    lastPointerX = e.clientX;
+    dragStartX = currentX;
+    dragVelocity = 0;
+    viewport.classList.add('is-dragging');
+    viewport.setPointerCapture(e.pointerId);
+  });
+
+  viewport.addEventListener('pointermove', (e) => {
+    if (!isDragging) return;
+    const deltaX = e.clientX - startPointerX;
+    dragVelocity = e.clientX - lastPointerX;
+    lastPointerX = e.clientX;
+    currentX = dragStartX - deltaX;
+  });
+
+  function endDrag(e) {
+    if (!isDragging) return;
+    isDragging = false;
+    viewport.classList.remove('is-dragging');
+    try {
+      if (viewport.hasPointerCapture(e.pointerId)) {
+        viewport.releasePointerCapture(e.pointerId);
+      }
+    } catch (err) {}
+    
+    // Prevent accidental link opening if user dragged
+    const dist = Math.abs(e.clientX - startPointerX);
+    if (dist > 8) {
+      const preventClick = (clickEvent) => {
+        clickEvent.preventDefault();
+        clickEvent.stopPropagation();
+        window.removeEventListener('click', preventClick, true);
+      };
+      window.addEventListener('click', preventClick, true);
+    }
+  }
+
+  viewport.addEventListener('pointerup', endDrag);
+  viewport.addEventListener('pointercancel', endDrag);
+
+  // Prev / Next button step controls
+  if (btnPrev) {
+    btnPrev.addEventListener('click', () => {
+      if (window.cyberAudio) window.cyberAudio.playClick();
+      const step = getStepWidth();
+      currentX -= step;
+    });
+  }
+
+  if (btnNext) {
+    btnNext.addEventListener('click', () => {
+      if (window.cyberAudio) window.cyberAudio.playClick();
+      const step = getStepWidth();
+      currentX += step;
+    });
+  }
+
+  // Pause / Play toggle button
+  if (btnPause) {
+    btnPause.addEventListener('click', () => {
+      if (window.cyberAudio) window.cyberAudio.playClick();
+      isPaused = !isPaused;
+      const pauseIcon = btnPause.querySelector('.carousel-pause-icon');
+      if (pauseIcon) {
+        pauseIcon.textContent = isPaused ? '▶' : '⏸';
+      }
+      if (statusText) {
+        statusText.textContent = isPaused ? 'TẠM DỪNG // BẤM ĐỂ TIẾP TỤC' : 'STREAMING SHOWCASE // 8 DỰ ÁN KỸ THUẬT';
+      }
+    });
+  }
+
+  // Wheel horizontal scroll
+  viewport.addEventListener('wheel', (e) => {
+    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    if (Math.abs(delta) > 4) {
+      currentX += delta * 0.7;
+      isHovered = true;
+      if (resumeTimer) clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(() => {
+        isHovered = false;
+      }, 1500);
+    }
+  }, { passive: true });
 }
 
 // --- 4. Interactive 5-Tier Pipeline Architecture Explorer ---
