@@ -684,7 +684,7 @@ function initRoadmapStacking() {
   if (!section) return;
 
   const cards = Array.from(section.querySelectorAll('.roadmap-stack-card'));
-  const pills = Array.from(section.querySelectorAll('.roadmap-step-pill'));
+  const pills = Array.from(section.querySelectorAll('.roadmap-year-btn, .roadmap-step-pill'));
   const hint = document.getElementById('roadmap-scroll-hint');
 
   if (!cards.length) return;

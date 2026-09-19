@@ -22,7 +22,7 @@
 &nbsp;
 [![GitHub](https://img.shields.io/badge/Thehy--IT-181717?style=for-the-badge&logo=github&logoColor=white&labelColor=1a1a2e)](https://github.com/Thehy-IT)
 &nbsp;
-[![UTH-HCMC](https://img.shields.io/badge/UT--HCMC-051205009083-0EA5E9?style=for-the-badge&logo=googlescholar&logoColor=white&labelColor=1a1a2e)](https://lequocdung64.github.io/Members/051205009083_HuynhTheHy.html)
+[![UTH-HCMC](https://img.shields.io/badge/UTH--HCMC-051205009083-0EA5E9?style=for-the-badge&logo=googlescholar&logoColor=white&labelColor=1a1a2e)](https://lequocdung64.github.io/Members/051205009083_HuynhTheHy.html)
 
 <img src="https://komarev.com/ghpvc/?username=Thehy-IT&label=Profile+views&color=0EA5E9&style=flat-square" alt="Profile views" />
 
