@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initRoadmapStacking();
   initCopyCodeButtons();
   initMobileMenu();
+  initBackToTop();
+  initToastSystem();
+  initCopyEmail();
 });
 
 // --- 1. Audio Toggle ---
@@ -148,11 +151,13 @@ function initProjectsContinuousCarousel() {
   originalItems.forEach(item => {
     const clone1 = item.cloneNode(true);
     clone1.setAttribute('aria-hidden', 'true');
+    clone1.querySelectorAll('a, button').forEach(el => el.setAttribute('tabindex', '-1'));
     track.appendChild(clone1);
   });
   originalItems.forEach(item => {
     const clone2 = item.cloneNode(true);
     clone2.setAttribute('aria-hidden', 'true');
+    clone2.querySelectorAll('a, button').forEach(el => el.setAttribute('tabindex', '-1'));
     track.appendChild(clone2);
   });
 
@@ -358,11 +363,28 @@ function initProjectsContinuousCarousel() {
       if (pauseIcon) {
         pauseIcon.textContent = isPaused ? '▶' : '⏸';
       }
+      btnPause.setAttribute('aria-label', isPaused ? 'Tiếp tục cuộn băng chuyền' : 'Tạm dừng cuộn băng chuyền');
+      btnPause.setAttribute('title', isPaused ? 'Tiếp tục cuộn' : 'Tạm dừng cuộn');
       if (statusText) {
         statusText.textContent = isPaused ? 'TẠM DỪNG // BẤM ĐỂ TIẾP TỤC' : 'STREAMING SHOWCASE // 8 DỰ ÁN KỸ THUẬT';
       }
     });
   }
+
+  // Keyboard Left / Right arrow navigation when viewport is focused
+  viewport.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') {
+      const step = getStepWidth();
+      currentX -= step;
+      if (window.cyberAudio) window.cyberAudio.playClick();
+      e.preventDefault();
+    } else if (e.key === 'ArrowRight') {
+      const step = getStepWidth();
+      currentX += step;
+      if (window.cyberAudio) window.cyberAudio.playClick();
+      e.preventDefault();
+    }
+  });
 
   // Wheel horizontal scroll
   viewport.addEventListener('wheel', (e) => {
@@ -419,21 +441,46 @@ function initPipelineExplorer() {
     }
   };
 
-  steps.forEach(step => {
-    step.addEventListener('click', () => {
-      const stepId = step.getAttribute('data-step');
-      if (!stepId || !pipelineData[stepId]) return;
+  function selectStep(step) {
+    const stepId = step.getAttribute('data-step');
+    if (!stepId || !pipelineData[stepId]) return;
 
-      steps.forEach(s => s.classList.remove('active'));
-      step.classList.add('active');
+    steps.forEach(s => {
+      s.classList.remove('active');
+      s.setAttribute('aria-selected', 'false');
+    });
+    step.classList.add('active');
+    step.setAttribute('aria-selected', 'true');
 
-      const data = pipelineData[stepId];
-      if (detailTitle) detailTitle.textContent = data.title;
-      if (detailDesc) detailDesc.textContent = data.desc;
-      if (detailTech) detailTech.textContent = data.tech;
-      if (detailMetric) detailMetric.textContent = data.metric;
+    const detailCard = document.getElementById('pipeline-detail-card');
+    if (detailCard) {
+      detailCard.setAttribute('aria-labelledby', step.id || `pipeline-tab-${stepId}`);
+    }
 
-      if (window.cyberAudio) window.cyberAudio.playClick();
+    const data = pipelineData[stepId];
+    if (detailTitle) detailTitle.textContent = data.title;
+    if (detailDesc) detailDesc.textContent = data.desc;
+    if (detailTech) detailTech.textContent = data.tech;
+    if (detailMetric) detailMetric.textContent = data.metric;
+
+    if (window.cyberAudio) window.cyberAudio.playClick();
+  }
+
+  steps.forEach((step, idx) => {
+    step.addEventListener('click', () => selectStep(step));
+    step.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        selectStep(step);
+      } else if (e.key === 'ArrowRight' && idx < steps.length - 1) {
+        steps[idx + 1].focus();
+        selectStep(steps[idx + 1]);
+        e.preventDefault();
+      } else if (e.key === 'ArrowLeft' && idx > 0) {
+        steps[idx - 1].focus();
+        selectStep(steps[idx - 1]);
+        e.preventDefault();
+      }
     });
   });
 }
@@ -488,34 +535,38 @@ Tất cả kho lưu trữ: https://github.com/Thehy-IT?tab=repositories`,
     }
   };
 
+  function executeCommand(cmdRaw) {
+    const trimmed = cmdRaw.trim();
+    const cmd = trimmed.toLowerCase();
+    if (!cmd) return;
+
+    commandHistory.push(trimmed);
+    historyIndex = commandHistory.length;
+
+    // Echo user command
+    appendOutput(`hy@datascience-lab:~$ ${trimmed}`, 'cmd-echo');
+
+    if (cmd === 'clear') {
+      terminalOutput.innerHTML = '';
+      return;
+    }
+
+    if (commands[cmd]) {
+      const res = typeof commands[cmd] === 'function' ? commands[cmd]() : commands[cmd];
+      appendOutput(res, 'cmd-result');
+    } else {
+      appendOutput(`Lệnh không hợp lệ: "${cmd}". Gõ 'help' để xem danh sách lệnh được hỗ trợ.`, 'cmd-error');
+    }
+
+    if (window.cyberAudio) window.cyberAudio.playClick();
+    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+  }
+
   terminalInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
-      const cmdRaw = terminalInput.value.trim();
-      const cmd = cmdRaw.toLowerCase();
+      const cmdRaw = terminalInput.value;
       terminalInput.value = '';
-
-      if (!cmd) return;
-
-      commandHistory.push(cmdRaw);
-      historyIndex = commandHistory.length;
-
-      // Echo user command
-      appendOutput(`hy@datascience-lab:~$ ${cmdRaw}`, 'cmd-echo');
-
-      if (cmd === 'clear') {
-        terminalOutput.innerHTML = '';
-        return;
-      }
-
-      if (commands[cmd]) {
-        const res = typeof commands[cmd] === 'function' ? commands[cmd]() : commands[cmd];
-        appendOutput(res, 'cmd-result');
-      } else {
-        appendOutput(`Lệnh không hợp lệ: "${cmd}". Gõ 'help' để xem danh sách lệnh được hỗ trợ.`, 'cmd-error');
-      }
-
-      if (window.cyberAudio) window.cyberAudio.playClick();
-      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+      executeCommand(cmdRaw);
     } else if (e.key === 'ArrowUp') {
       if (historyIndex > 0) {
         historyIndex--;
@@ -534,6 +585,28 @@ Tất cả kho lưu trữ: https://github.com/Thehy-IT?tab=repositories`,
     }
   });
 
+  // Connect Quick Command Chips
+  const chips = document.querySelectorAll('.terminal-chip');
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const cmd = chip.getAttribute('data-cmd');
+      if (cmd) {
+        executeCommand(cmd);
+        terminalInput.focus();
+      }
+    });
+  });
+
+  // Click on terminal background to focus input
+  const wrapper = document.querySelector('.terminal-wrapper');
+  if (wrapper) {
+    wrapper.addEventListener('click', (e) => {
+      if (!e.target.closest('.terminal-chip') && !e.target.closest('input')) {
+        terminalInput.focus();
+      }
+    });
+  }
+
   function appendOutput(text, className = '') {
     const line = document.createElement('div');
     line.className = `terminal-line ${className}`;
@@ -549,8 +622,12 @@ function initTechStackFilters() {
 
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
+      filterBtns.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
       btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
 
       const filter = btn.getAttribute('data-filter');
       stackCards.forEach(card => {
@@ -615,6 +692,10 @@ function initCopyCodeButtons() {
           const orig = btn.innerHTML;
           btn.innerHTML = '✓ Đã sao chép!';
           btn.classList.add('copied');
+          if (window.showCyberToast) {
+            window.showCyberToast('✓ Đã sao chép mã thehy_profile.py');
+          }
+          if (window.cyberAudio) window.cyberAudio.playClick();
           setTimeout(() => {
             btn.innerHTML = orig;
             btn.classList.remove('copied');
@@ -635,6 +716,10 @@ function initMobileMenu() {
 
   if (!btnMenu || !drawer) return;
 
+  const focusableEls = drawer.querySelectorAll('a, button');
+  const firstFocusable = focusableEls[0];
+  const lastFocusable = focusableEls[focusableEls.length - 1];
+
   function openDrawer() {
     drawer.classList.add('open');
     if (backdrop) backdrop.classList.add('open');
@@ -643,6 +728,9 @@ function initMobileMenu() {
     drawer.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
     if (window.cyberAudio) window.cyberAudio.playClick();
+    setTimeout(() => {
+      if (btnClose) btnClose.focus();
+    }, 60);
   }
 
   function closeDrawer() {
@@ -652,6 +740,7 @@ function initMobileMenu() {
     btnMenu.setAttribute('aria-expanded', 'false');
     drawer.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    btnMenu.focus();
   }
 
   btnMenu.addEventListener('click', () => {
@@ -669,6 +758,20 @@ function initMobileMenu() {
     link.addEventListener('click', () => {
       closeDrawer();
     });
+  });
+
+  drawer.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+      if (e.shiftKey && document.activeElement === firstFocusable) {
+        e.preventDefault();
+        lastFocusable.focus();
+      } else if (!e.shiftKey && document.activeElement === lastFocusable) {
+        e.preventDefault();
+        firstFocusable.focus();
+      }
+    } else if (e.key === 'Escape') {
+      closeDrawer();
+    }
   });
 
   window.addEventListener('keydown', (e) => {
@@ -693,7 +796,67 @@ function initRoadmapStacking() {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function getStepOffset() {
-    return window.innerWidth <= 768 ? 20 : 28;
+    if (window.innerWidth <= 480) return 14;
+    if (window.innerWidth <= 768) return 18;
+    return 26;
+  }
+
+  // Automatically calibrate card, deck, and section heights based on real rendered contents
+  function adjustRoadmapHeight() {
+    const deck = document.getElementById('roadmap-deck');
+    if (!deck || !cards.length) return;
+
+    const stepOffset = getStepOffset();
+
+    // 1. Reset explicit heights so cards expand to their natural content volume
+    cards.forEach(card => {
+      card.style.height = 'auto';
+      card.style.minHeight = 'auto';
+    });
+
+    // 2. Measure max required height across all cards
+    let maxContentHeight = 0;
+    cards.forEach(card => {
+      const naturalH = Math.max(card.scrollHeight, card.offsetHeight, Math.ceil(card.getBoundingClientRect().height));
+      if (naturalH > maxContentHeight) {
+        maxContentHeight = naturalH;
+      }
+    });
+
+    // 3. Add safety padding (16px) to guarantee zero clipping of text, borders or chips
+    const minH = window.innerWidth <= 480 ? 370 : (window.innerWidth <= 768 ? 380 : 360);
+    const finalCardHeight = Math.max(minH, Math.ceil(maxContentHeight + 16));
+
+    // 4. Apply synchronized uniform height to all cards
+    cards.forEach(card => {
+      card.style.height = `${finalCardHeight}px`;
+      card.style.minHeight = `${finalCardHeight}px`;
+    });
+
+    // 5. Deck height must fit the tallest card + the full stacking offset of all cards
+    const totalStackOffset = (totalCards - 1) * stepOffset;
+    const finalDeckHeight = finalCardHeight + totalStackOffset + 20;
+
+    deck.style.height = `${finalDeckHeight}px`;
+    deck.style.minHeight = `${finalDeckHeight}px`;
+
+    // 6. Section scroll-track height automatically scales so user has plenty of scroll distance
+    const vhFactor = window.innerWidth <= 768 ? 290 : 330;
+    const winH = Math.max(window.innerHeight, 600);
+    const neededVh = Math.max(vhFactor, Math.round((finalDeckHeight / winH) * 360));
+    section.style.height = `${neededVh}vh`;
+
+    // 7. Ensure sticky wrapper height never clips cards on shorter screens
+    const stickyWrapper = section.querySelector('.roadmap-sticky-wrapper');
+    if (stickyWrapper) {
+      const topOffset = window.innerWidth <= 768 ? 56 : 70;
+      const minNeededWrapper = finalDeckHeight + (window.innerWidth <= 768 ? 70 : 90);
+      if (minNeededWrapper > window.innerHeight - topOffset) {
+        stickyWrapper.style.minHeight = `${minNeededWrapper}px`;
+      } else {
+        stickyWrapper.style.minHeight = '';
+      }
+    }
   }
 
   function updateStack() {
@@ -708,7 +871,18 @@ function initRoadmapStacking() {
     const progress = Math.max(0, Math.min(1, rawProgress));
 
     const stepOffset = getStepOffset();
-    const numTransitions = totalCards - 1; // 3 transitions
+
+    // Transition windows for subsequent cards (Card 1, 2, 3)
+    // Card 0 (2024) rests alone from 0.00 to 0.18 without being covered.
+    // Card 1 (2025) transitions from 0.18 to 0.34 and rests from 0.34 to 0.48.
+    // Card 2 (2026) transitions from 0.48 to 0.64 and rests from 0.64 to 0.78.
+    // Card 3 (Tương lai) transitions from 0.78 to 0.94 and rests from 0.94 to 1.00.
+    const cardRanges = [
+      null,
+      { start: 0.18, end: 0.34 },
+      { start: 0.48, end: 0.64 },
+      { start: 0.78, end: 0.94 }
+    ];
 
     cards.forEach((card, index) => {
       // Base card (Index 0: 2024)
@@ -719,10 +893,10 @@ function initRoadmapStacking() {
           return;
         }
 
-        // Slight scale and dimming as higher cards stack on top of it
-        const stackOverCount = progress * numTransitions; // 0 to 3
-        const scale = Math.max(0.88, 1 - stackOverCount * 0.035);
-        const brightness = Math.max(0.65, 1 - stackOverCount * 0.1);
+        // Slight scale and dimming only when higher cards start stacking over it (after 0.18)
+        const stackOver = Math.max(0, (progress - 0.18) / 0.82);
+        const scale = Math.max(0.92, 1 - stackOver * 0.06);
+        const brightness = Math.max(0.7, 1 - stackOver * 0.25);
 
         card.style.transform = `translate3d(0, 0px, 0) scale(${scale.toFixed(3)})`;
         card.style.filter = `brightness(${brightness.toFixed(2)})`;
@@ -732,18 +906,21 @@ function initRoadmapStacking() {
       }
 
       // Subsequent cards (Index 1, 2, 3)
-      const startRange = (index - 1) / numTransitions;
-      const endRange = index / numTransitions;
+      const range = cardRanges[index];
+      const startRange = range.start;
+      const endRange = range.end;
       const finalY = index * stepOffset;
 
       if (prefersReduced) {
         card.style.transform = `translate3d(0, ${finalY}px, 0)`;
         card.style.opacity = progress >= startRange ? '1' : '0';
+        card.style.pointerEvents = progress >= startRange ? 'auto' : 'none';
+        card.style.zIndex = (index + 1).toString();
         return;
       }
 
       if (progress < startRange) {
-        // Below viewport / waiting turn
+        // Below viewport / waiting turn - NEVER overlaps previous cards!
         card.style.transform = `translate3d(0, 120%, 0) scale(0.95)`;
         card.style.opacity = '0';
         card.style.filter = 'brightness(1)';
@@ -759,7 +936,7 @@ function initRoadmapStacking() {
           : `${finalY}px`;
 
         const scale = (0.95 + 0.05 * t).toFixed(3);
-        const opacity = Math.min(1, t * 2.2).toFixed(2);
+        const opacity = Math.min(1, t * 2.0).toFixed(2);
 
         card.style.transform = `translate3d(0, ${interpY}, 0) scale(${scale})`;
         card.style.opacity = opacity;
@@ -767,9 +944,9 @@ function initRoadmapStacking() {
         card.style.pointerEvents = 'auto';
       } else {
         // Fully stacked in place; subtle scale down as higher cards stack over it
-        const overProgress = (progress - endRange) * numTransitions;
-        const scale = Math.max(0.9, 1 - overProgress * 0.035).toFixed(3);
-        const brightness = Math.max(0.7, 1 - overProgress * 0.1).toFixed(2);
+        const overProgress = Math.max(0, (progress - endRange) / (1 - endRange));
+        const scale = Math.max(0.92, 1 - overProgress * 0.05).toFixed(3);
+        const brightness = Math.max(0.72, 1 - overProgress * 0.2).toFixed(2);
 
         card.style.transform = `translate3d(0, ${finalY}px, 0) scale(${scale})`;
         card.style.opacity = '1';
@@ -780,11 +957,11 @@ function initRoadmapStacking() {
       card.style.zIndex = (index + 1).toString();
     });
 
-    // Determine active stage pill (0, 1, 2, 3)
+    // Determine active stage pill (0: 2024, 1: 2025, 2: 2026, 3: Tương lai)
     let activeIndex = 0;
-    if (progress < 0.2) activeIndex = 0;
-    else if (progress < 0.52) activeIndex = 1;
-    else if (progress < 0.85) activeIndex = 2;
+    if (progress < 0.26) activeIndex = 0;
+    else if (progress < 0.56) activeIndex = 1;
+    else if (progress < 0.86) activeIndex = 2;
     else activeIndex = 3;
 
     pills.forEach((pill, idx) => {
@@ -797,7 +974,7 @@ function initRoadmapStacking() {
     if (hint) {
       const hintText = hint.querySelector('.hint-text');
       if (hintText) {
-        if (progress >= 0.98) {
+        if (progress >= 0.96) {
           hintText.textContent = '✓ Toàn bộ hành trình đã hiển thị • Tiếp tục cuộn trang';
         } else {
           hintText.textContent = 'Cuộn chuột để xem các giai đoạn lần lượt đè lên nhau';
@@ -806,12 +983,13 @@ function initRoadmapStacking() {
     }
   }
 
-  // Click pill to smoothly navigate to that stage's stacked point
+  // Click or keyboard navigate pill to smoothly navigate to that stage's stacked point
+  const stageRatios = [0.0, 0.40, 0.70, 0.98];
   pills.forEach((pill, idx) => {
     pill.addEventListener('click', () => {
       const totalDist = section.offsetHeight - window.innerHeight;
-      const targetRatio = idx / (totalCards - 1);
-      const targetScroll = section.offsetTop + targetRatio * totalDist + 10;
+      const targetRatio = stageRatios[idx] !== undefined ? stageRatios[idx] : idx / (totalCards - 1);
+      const targetScroll = section.offsetTop + targetRatio * totalDist;
 
       window.scrollTo({
         top: targetScroll,
@@ -819,6 +997,21 @@ function initRoadmapStacking() {
       });
 
       if (window.cyberAudio) window.cyberAudio.playClick();
+    });
+
+    pill.addEventListener('keydown', (e) => {
+      let targetIdx = -1;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+        if (idx < pills.length - 1) targetIdx = idx + 1;
+        e.preventDefault();
+      } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+        if (idx > 0) targetIdx = idx - 1;
+        e.preventDefault();
+      }
+      if (targetIdx !== -1) {
+        pills[targetIdx].focus();
+        pills[targetIdx].click();
+      }
     });
   });
 
@@ -835,9 +1028,87 @@ function initRoadmapStacking() {
   }, { passive: true });
 
   window.addEventListener('resize', () => {
+    adjustRoadmapHeight();
     updateStack();
   }, { passive: true });
 
-  // Initial trigger
+  // Recalibrate after web fonts finish loading to account for font metric changes
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => {
+      adjustRoadmapHeight();
+      updateStack();
+    });
+  }
+
+  // Initial measurement and render
+  adjustRoadmapHeight();
   updateStack();
+
+  // Extra safety recalibration after layout settles
+  setTimeout(() => {
+    adjustRoadmapHeight();
+    updateStack();
+  }, 120);
 }
+
+// --- 11. Floating Back to Top Button ---
+function initBackToTop() {
+  const btn = document.getElementById('btn-back-to-top');
+  if (!btn) return;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  }, { passive: true });
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (window.cyberAudio) window.cyberAudio.playClick();
+  });
+}
+
+// --- 12. Cyber Toast Notification System ---
+function initToastSystem() {
+  window.showCyberToast = function(message, duration = 3000) {
+    const toast = document.getElementById('cyber-toast');
+    const msgEl = document.getElementById('toast-message');
+    if (!toast) return;
+    if (msgEl) msgEl.textContent = message;
+    toast.classList.add('show');
+    toast.setAttribute('aria-hidden', 'false');
+
+    if (window._toastTimer) clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(() => {
+      toast.classList.remove('show');
+      toast.setAttribute('aria-hidden', 'true');
+    }, duration);
+  };
+}
+
+// --- 13. Copy Email Action ---
+function initCopyEmail() {
+  const btn = document.getElementById('btn-copy-email');
+  if (!btn) return;
+
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const email = btn.getAttribute('data-email') || 'hthehy.tech9083@gmail.com';
+    navigator.clipboard.writeText(email).then(() => {
+      if (window.showCyberToast) {
+        window.showCyberToast(`✓ Đã sao chép email: ${email}`);
+      }
+      if (window.cyberAudio) window.cyberAudio.playClick();
+      const textSpan = btn.querySelector('span');
+      if (textSpan) {
+        textSpan.textContent = 'Đã chép!';
+        setTimeout(() => {
+          textSpan.textContent = 'Sao chép';
+        }, 2000);
+      }
+    });
+  });
+}
+

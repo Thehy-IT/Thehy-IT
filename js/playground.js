@@ -120,6 +120,7 @@ class MLPlayground {
       this.sliderLr.addEventListener('input', (e) => {
         this.learningRate = parseFloat(e.target.value);
         if (this.labelLr) this.labelLr.textContent = this.learningRate.toFixed(2);
+        this.sliderLr.setAttribute('aria-valuenow', this.learningRate.toFixed(2));
       });
     }
   }

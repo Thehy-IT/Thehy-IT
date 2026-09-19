@@ -17,6 +17,9 @@
 </head>
 <body>
 
+  <!-- Skip to Main Content Link for WCAG 2.1 AA Accessibility -->
+  <a href="#main-content" class="skip-to-content">Chuyển đến nội dung chính</a>
+
   <!-- Continuous 3D Background Canvas (Runs continuously from top to bottom) -->
   <canvas id="neural-canvas-3d" aria-hidden="true"></canvas>
 
@@ -84,15 +87,60 @@
           <button id="btn-close-drawer" class="btn-close-drawer" type="button" aria-label="Đóng menu">✕</button>
         </div>
         <nav class="drawer-links" role="navigation" aria-label="Menu di động">
-          <a href="#about" class="drawer-link"><span class="drawer-icon">🧠</span> <span class="drawer-text">Về tôi</span></a>
-          <a href="#specializations" class="drawer-link"><span class="drawer-icon"></span> <span class="drawer-text">Chuyên môn</span></a>
-          <a href="#ml-lab" class="drawer-link"><span class="drawer-icon"></span> <span class="drawer-text">ML Lab</span></a>
-          <a href="#pipeline" class="drawer-link"><span class="drawer-icon"></span> <span class="drawer-text">Kiến trúc 5 tầng</span></a>
-          <a href="#projects" class="drawer-link"><span class="drawer-icon"></span> <span class="drawer-text">Dự án</span></a>
-          <a href="#tech-stack" class="drawer-link"><span class="drawer-icon"></span> <span class="drawer-text">Tech Stack</span></a>
-          <a href="#terminal" class="drawer-link"><span class="drawer-icon">💻</span> <span class="drawer-text">Terminal</span></a>
-          <a href="#roadmap" class="drawer-link"><span class="drawer-icon"></span> <span class="drawer-text">Lộ trình</span></a>
-          <a href="#contact" class="drawer-link"><span class="drawer-icon"></span> <span class="drawer-text">Liên hệ</span></a>
+          <a href="#about" class="drawer-link">
+            <span class="drawer-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </span>
+            <span class="drawer-text">Về tôi</span>
+          </a>
+          <a href="#specializations" class="drawer-link">
+            <span class="drawer-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </span>
+            <span class="drawer-text">Chuyên môn</span>
+          </a>
+          <a href="#ml-lab" class="drawer-link">
+            <span class="drawer-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31"></path><path d="M14 9.3V2"></path><path d="M8.5 2h7"></path><path d="M14 9.3a6.5 6.5 0 1 1-4 0"></path><path d="M5.52 16h12.96"></path></svg>
+            </span>
+            <span class="drawer-text">ML Lab</span>
+          </a>
+          <a href="#pipeline" class="drawer-link">
+            <span class="drawer-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+            </span>
+            <span class="drawer-text">Kiến trúc 5 tầng</span>
+          </a>
+          <a href="#projects" class="drawer-link">
+            <span class="drawer-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            </span>
+            <span class="drawer-text">Dự án</span>
+          </a>
+          <a href="#tech-stack" class="drawer-link">
+            <span class="drawer-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+            </span>
+            <span class="drawer-text">Tech Stack</span>
+          </a>
+          <a href="#terminal" class="drawer-link">
+            <span class="drawer-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+            </span>
+            <span class="drawer-text">Terminal</span>
+          </a>
+          <a href="#roadmap" class="drawer-link">
+            <span class="drawer-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+            </span>
+            <span class="drawer-text">Lộ trình</span>
+          </a>
+          <a href="#contact" class="drawer-link">
+            <span class="drawer-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </span>
+            <span class="drawer-text">Liên hệ</span>
+          </a>
         </nav>
       </div>
       <div id="drawer-backdrop" class="drawer-backdrop" aria-hidden="true"></div>
@@ -117,7 +165,7 @@
           </p>
 
           <p class="hero-bio">
-            Sinh viên Công nghệ Thông tin tại <strong>ĐH Giao thông Vận tải TP.HCM (UTH-HCMC)</strong>. 
+            Sinh viên Khoa học dữ liệu tại <strong>ĐH Giao thông Vận tải TP.HCM (UTH-HCMC)</strong>. 
             Tập trung kiến trúc dữ liệu quy mô lớn, huấn luyện mô hình Machine Learning thực chiến, 
             và phát triển tư duy dẫn dắt dự án công nghệ có chiều sâu kỹ thuật.
           </p>
@@ -214,7 +262,7 @@
               </li>
               <li class="about-detail-row">
                 <span class="detail-label">Chuyên ngành:</span>
-                <span class="detail-value">Công nghệ Thông tin</span>
+                <span class="detail-value">Khoa học dữ liệu</span>
               </li>
               <li class="about-detail-row">
                 <span class="detail-label">Định hướng dài hạn:</span>
@@ -224,11 +272,11 @@
           </div>
 
           <div class="about-card tilt-card">
-            <h3 class="spec-title" style="margin-bottom: 1rem; color: var(--accent-cyan-light);">Tại sao kết hợp Data Science & IT Project Management?</h3>
-            <p style="color: var(--text-secondary); margin-bottom: 1.25rem;">
+            <h3 class="spec-title about-mission-title">Tại sao kết hợp Data Science & IT Project Management?</h3>
+            <p class="about-mission-text">
               Trong kỷ nguyên dữ liệu và AI bùng nổ, một Project Manager không có nền tảng kỹ thuật sâu sắc sẽ gặp khó khăn lớn trong việc ước lượng độ phức tạp của thuật toán, chi phí pipeline, và tính khả thi của mô hình học máy.
             </p>
-            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+            <p class="about-mission-text">
               Mục tiêu của tôi là trở thành <strong>cầu nối vững chắc</strong> giữa bài toán nghiệp vụ kinh doanh và đội ngũ kỹ thuật: hiểu rõ từ cách tối ưu truy vấn SQL, kiến trúc sharding NoSQL, đánh giá độ lệch (bias/variance) của mô hình ML, cho đến phương pháp điều phối dự án chuẩn Agile/Scrum.
             </p>
 
@@ -346,9 +394,9 @@
               <canvas id="loss-chart-canvas" width="360" height="180" aria-label="Biểu đồ hàm mất mát theo epoch"></canvas>
 
               <!-- Confusion Matrix & Metrics Display -->
-              <div style="width: 100%; margin-top: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+              <div class="cm-metrics-row">
                 <div>
-                  <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.3rem;">MA TRẬN NHẦM LẪN (CONFUSION MATRIX)</div>
+                  <div class="cm-title">MA TRẬN NHẦM LẪN (CONFUSION MATRIX)</div>
                   <div class="confusion-matrix-box">
                     <div class="cm-cell"><div class="cm-cell-label">TP</div><div id="cm-tp" class="cm-cell-val emerald">0</div></div>
                     <div class="cm-cell"><div class="cm-cell-label">FP</div><div id="cm-fp" class="cm-cell-val amber">0</div></div>
@@ -357,7 +405,7 @@
                   </div>
                 </div>
 
-                <div style="font-family: var(--font-mono); font-size: 0.8rem; display: flex; flex-direction: column; gap: 0.4rem;">
+                <div class="cm-stats-list">
                   <div>Precision: <strong id="cm-precision" class="emerald">0%</strong></div>
                   <div>F1-Score: <strong id="cm-f1" class="cyan">0.00</strong></div>
                   <div>Epoch: <strong id="label-epoch">0</strong></div>
@@ -381,17 +429,17 @@
 
             <div class="control-group">
               <label for="slider-lr" class="control-label">Learning Rate (α): <span id="label-lr">0.08</span></label>
-              <input id="slider-lr" class="slider-cyber" type="range" min="0.01" max="0.25" step="0.01" value="0.08" />
+              <input id="slider-lr" class="slider-cyber" type="range" min="0.01" max="0.25" step="0.01" value="0.08" aria-label="Tốc độ học (Learning Rate)" aria-valuemin="0.01" aria-valuemax="0.25" aria-valuenow="0.08" />
             </div>
 
             <div class="control-group">
-              <button id="btn-train" class="btn-train" type="button">
+              <button id="btn-train" class="btn-train" type="button" aria-live="polite">
                 <span class="btn-icon">▶</span> Bắt đầu huấn luyện
               </button>
-              <button id="btn-step" class="btn-secondary" style="padding: 0.45rem 0.85rem; font-size: 0.8rem;" type="button">
+              <button id="btn-step" class="btn-secondary btn-control-secondary" type="button">
                 Bước +5 Epoch
               </button>
-              <button id="btn-reset" class="btn-secondary" style="padding: 0.45rem 0.85rem; font-size: 0.8rem;" type="button">
+              <button id="btn-reset" class="btn-secondary btn-control-secondary" type="button">
                 Khởi tạo lại
               </button>
             </div>
@@ -409,30 +457,30 @@
           </p>
         </div>
 
-        <div class="pipeline-diagram">
-          <div class="pipeline-step active" data-step="1">
+        <div class="pipeline-diagram" role="tablist" aria-label="5 Tầng Kiến Trúc Dữ Liệu">
+          <div class="pipeline-step active" data-step="1" role="tab" tabindex="0" aria-selected="true" aria-controls="pipeline-detail-card" id="pipeline-tab-1">
             <div class="step-number">TẦNG 01</div>
             <div class="step-title">Source Ingestion</div>
           </div>
-          <div class="pipeline-step" data-step="2">
+          <div class="pipeline-step" data-step="2" role="tab" tabindex="0" aria-selected="false" aria-controls="pipeline-detail-card" id="pipeline-tab-2">
             <div class="step-number">TẦNG 02</div>
             <div class="step-title">Redis Cache</div>
           </div>
-          <div class="pipeline-step" data-step="3">
+          <div class="pipeline-step" data-step="3" role="tab" tabindex="0" aria-selected="false" aria-controls="pipeline-detail-card" id="pipeline-tab-3">
             <div class="step-number">TẦNG 03</div>
             <div class="step-title">MongoDB NoSQL</div>
           </div>
-          <div class="pipeline-step" data-step="4">
+          <div class="pipeline-step" data-step="4" role="tab" tabindex="0" aria-selected="false" aria-controls="pipeline-detail-card" id="pipeline-tab-4">
             <div class="step-number">TẦNG 04</div>
             <div class="step-title">Relational 3NF</div>
           </div>
-          <div class="pipeline-step" data-step="5">
+          <div class="pipeline-step" data-step="5" role="tab" tabindex="0" aria-selected="false" aria-controls="pipeline-detail-card" id="pipeline-tab-5">
             <div class="step-number">TẦNG 05</div>
             <div class="step-title">AI Analytics</div>
           </div>
         </div>
 
-        <div class="pipeline-detail-card tilt-card">
+        <div class="pipeline-detail-card tilt-card" id="pipeline-detail-card" role="tabpanel" aria-labelledby="pipeline-tab-1">
           <div id="pipeline-detail-title" class="pipeline-detail-title">Tầng 1: Source Ingestion & API Gateway</div>
           <p id="pipeline-detail-desc" class="pipeline-detail-desc">
             Tiếp nhận luồng tương tác mạng xã hội theo thời gian thực (posts, likes, user activities) với rate limiting và schema validation.
@@ -478,7 +526,7 @@
           </div>
 
           <!-- Viewport with Side Vignette & Mask -->
-          <div class="projects-carousel-viewport" id="projects-carousel-viewport">
+          <div class="projects-carousel-viewport" id="projects-carousel-viewport" tabindex="0" role="region" aria-label="Băng chuyền dự án kỹ thuật (Sử dụng mũi tên Trái/Phải để chuyển đổi)">
             <div class="projects-carousel-track" id="projects-carousel-track">
               <!-- Item 1 -->
               <div class="carousel-item" data-index="0">
@@ -718,12 +766,12 @@
           </p>
         </div>
 
-        <div class="stack-filter-nav" role="tablist">
-          <button class="stack-filter-btn active" data-filter="all" type="button">Tất cả</button>
-          <button class="stack-filter-btn" data-filter="data" type="button">Data & AI</button>
-          <button class="stack-filter-btn" data-filter="db" type="button">Databases</button>
-          <button class="stack-filter-btn" data-filter="backend" type="button">Backend</button>
-          <button class="stack-filter-btn" data-filter="tools" type="button">DevOps & Tools</button>
+        <div class="stack-filter-nav" role="tablist" aria-label="Bộ lọc ma trận kỹ thuật">
+          <button class="stack-filter-btn active" data-filter="all" type="button" role="tab" aria-selected="true">Tất cả</button>
+          <button class="stack-filter-btn" data-filter="data" type="button" role="tab" aria-selected="false">Data & AI</button>
+          <button class="stack-filter-btn" data-filter="db" type="button" role="tab" aria-selected="false">Databases</button>
+          <button class="stack-filter-btn" data-filter="backend" type="button" role="tab" aria-selected="false">Backend</button>
+          <button class="stack-filter-btn" data-filter="tools" type="button" role="tab" aria-selected="false">DevOps & Tools</button>
         </div>
 
         <div class="stack-grid">
@@ -865,7 +913,20 @@
 
           <div class="terminal-prompt-bar">
             <span class="prompt-symbol">hy@lab:~$</span>
-            <input id="terminal-input" class="terminal-input" type="text" placeholder="Nhập lệnh tại đây (vd: help, bio, skills, predict, contact)..." autocomplete="off" spellcheck="false" aria-label="Nhập lệnh terminal" />
+            <input id="terminal-input" class="terminal-input" type="text" placeholder="Nhập lệnh hoặc chọn gợi ý bên dưới (vd: help, bio, skills, predict)..." autocomplete="off" spellcheck="false" aria-label="Nhập lệnh terminal" />
+          </div>
+
+          <!-- Interactive Quick Command Chips -->
+          <div class="terminal-quick-chips" aria-label="Lệnh nhanh">
+            <span class="quick-chip-label">Lệnh nhanh:</span>
+            <button type="button" class="terminal-chip" data-cmd="help" title="Xem hướng dẫn">help</button>
+            <button type="button" class="terminal-chip" data-cmd="bio" title="Xem tiểu sử & triết lý">bio</button>
+            <button type="button" class="terminal-chip" data-cmd="skills" title="Xem bảng kỹ năng">skills</button>
+            <button type="button" class="terminal-chip" data-cmd="projects" title="Xem danh sách dự án">projects</button>
+            <button type="button" class="terminal-chip" data-cmd="predict" title="Chạy mô hình dự đoán">predict</button>
+            <button type="button" class="terminal-chip" data-cmd="train" title="Đến ML Lab">train</button>
+            <button type="button" class="terminal-chip" data-cmd="contact" title="Thông tin liên hệ">contact</button>
+            <button type="button" class="terminal-chip chip-clear" data-cmd="clear" title="Xóa màn hình terminal">clear</button>
           </div>
         </div>
       </section>
@@ -943,19 +1004,36 @@
                     <div class="card-year-badge">
                       <span class="year-num">2024</span>
                       <span class="stage-tag tag-complete">✓ ĐÃ HOÀN THÀNH</span>
+                      <span class="stage-role-tag">Nền tảng UTH</span>
                     </div>
                     <span class="card-phase-index">GIAI ĐOẠN 01 / 04</span>
                   </div>
-                  <h3 class="stack-stage-title">Nền tảng Kỹ thuật & Tư duy Hệ thống</h3>
-                  <p class="stack-stage-desc">
-                    Xây dựng nền móng khoa học máy tính vững chắc: làm chủ Cấu trúc Dữ liệu & Giải thuật (DSA), lập trình hướng đối tượng (OOP), tư duy phân tích độ phức tạp thuật toán và chuẩn hóa Cơ sở Dữ liệu quan hệ 3NF.
-                  </p>
+                  <div class="stack-card-body">
+                    <h3 class="stack-stage-title">Nền tảng Kỹ thuật & Tư duy Hệ thống</h3>
+                    <ul class="stack-stage-highlights" aria-label="Cột mốc tiêu biểu">
+                      <li class="stack-highlight-item">
+                        <span class="stack-highlight-bullet" aria-hidden="true">▸</span>
+                        <span>Làm chủ Cấu trúc Dữ liệu & Giải thuật (DSA) với C/C++ và Python OOP</span>
+                      </li>
+                      <li class="stack-highlight-item">
+                        <span class="stack-highlight-bullet" aria-hidden="true">▸</span>
+                        <span>Thiết kế & Chuẩn hóa Cơ sở Dữ liệu quan hệ 3NF (MySQL, SQL Server)</span>
+                      </li>
+                      <li class="stack-highlight-item">
+                        <span class="stack-highlight-bullet" aria-hidden="true">▸</span>
+                        <span>Rèn luyện tư duy phân tích độ phức tạp thuật toán và logic hệ thống phần mềm</span>
+                      </li>
+                    </ul>
+                    <p class="stack-stage-desc">
+                      Xây dựng nền móng khoa học máy tính chuẩn mực tại ĐH Giao thông Vận tải TP.HCM. Rèn luyện tư duy code tối ưu, làm chủ kiến trúc hướng đối tượng và chuẩn hóa quan hệ dữ liệu.
+                    </p>
+                  </div>
                   <div class="stack-stage-skills">
                     <span class="skill-chip">C / C++</span>
                     <span class="skill-chip">Python OOP</span>
                     <span class="skill-chip">DSA Algorithms</span>
                     <span class="skill-chip">CSDL Chuẩn 3NF</span>
-                    <span class="skill-chip">System Logic</span>
+                    <span class="skill-chip">System Architecture</span>
                   </div>
                 </article>
 
@@ -965,18 +1043,35 @@
                     <div class="card-year-badge">
                       <span class="year-num">2025</span>
                       <span class="stage-tag tag-mastered">✓ LÀM CHỦ CÔNG NGHỆ</span>
+                      <span class="stage-role-tag">Data & AI Specialist</span>
                     </div>
                     <span class="card-phase-index">GIAI ĐOẠN 02 / 04</span>
                   </div>
-                  <h3 class="stack-stage-title">Chuyên sâu Khai phá Dữ liệu & Học máy (Data & AI)</h3>
-                  <p class="stack-stage-desc">
-                    Chuyển dịch trọng tâm sang Data Engineering & Machine Learning: triển khai giải thuật Data Mining (Apriori, FP-Growth), huấn luyện mô hình Scikit-learn, nghiên cứu mạng nơ-ron tích chập (CNN) trên ảnh y tế DICOM và kiến trúc lưu trữ NoSQL 5 tầng.
-                  </p>
+                  <div class="stack-card-body">
+                    <h3 class="stack-stage-title">Chuyên sâu Khai phá Dữ liệu & Học máy (Data & AI)</h3>
+                    <ul class="stack-stage-highlights" aria-label="Cột mốc tiêu biểu">
+                      <li class="stack-highlight-item">
+                        <span class="stack-highlight-bullet" aria-hidden="true">▸</span>
+                        <span>Khai phá dữ liệu nâng cao: Apriori, FP-Growth & Huấn luyện Scikit-learn</span>
+                      </li>
+                      <li class="stack-highlight-item">
+                        <span class="stack-highlight-bullet" aria-hidden="true">▸</span>
+                        <span>Mạng nơ-ron học sâu CNN trích xuất đặc trưng hình ảnh y tế chuẩn DICOM</span>
+                      </li>
+                      <li class="stack-highlight-item">
+                        <span class="stack-highlight-bullet" aria-hidden="true">▸</span>
+                        <span>Kiến trúc lưu trữ phân tầng NoSQL 5-Layer chịu tải cao (Redis Hot Cache, MongoDB)</span>
+                      </li>
+                    </ul>
+                    <p class="stack-stage-desc">
+                      Chuyển dịch sang Data Engineering & Machine Learning thực chiến: xử lý dữ liệu lớn, trích chọn đặc trưng đa chiều và xây dựng mô hình trí tuệ nhân tạo có độ tin cậy cao.
+                    </p>
+                  </div>
                   <div class="stack-stage-skills">
                     <span class="skill-chip">Data Mining (Apriori)</span>
                     <span class="skill-chip">Scikit-learn ML</span>
                     <span class="skill-chip">Deep Learning CNN</span>
-                    <span class="skill-chip">NoSQL 5 Tầng</span>
+                    <span class="skill-chip">NoSQL 5-Layer</span>
                     <span class="skill-chip">Feature Engineering</span>
                   </div>
                 </article>
@@ -987,13 +1082,30 @@
                     <div class="card-year-badge">
                       <span class="year-num cyan">2026</span>
                       <span class="stage-tag tag-active">● ĐANG TĂNG TỐC</span>
+                      <span class="stage-role-tag role-active">Production & AI Systems</span>
                     </div>
                     <span class="card-phase-index">GIAI ĐOẠN 03 / 04 (HIỆN TẠI)</span>
                   </div>
-                  <h3 class="stack-stage-title">Ứng dụng Thực tế & Tối ưu Production</h3>
-                  <p class="stack-stage-desc">
-                    Đưa giải pháp vào thực tế sản xuất: xây dựng Production Data Pipelines, tích hợp AI vào hệ thống fullstack, rèn luyện tư duy quản trị dự án kỹ thuật (Scrum/Agile), tối ưu hóa hiệu năng truy vấn và bảo vệ các đề tài khoa học ứng dụng.
-                  </p>
+                  <div class="stack-card-body">
+                    <h3 class="stack-stage-title">Ứng dụng Thực tế & Tối ưu Production</h3>
+                    <ul class="stack-stage-highlights" aria-label="Cột mốc tiêu biểu">
+                      <li class="stack-highlight-item">
+                        <span class="stack-highlight-bullet" aria-hidden="true">▸</span>
+                        <span>Xây dựng Production Data Pipeline & Enterprise Lakehouse Medallion</span>
+                      </li>
+                      <li class="stack-highlight-item">
+                        <span class="stack-highlight-bullet" aria-hidden="true">▸</span>
+                        <span>Tích hợp mô hình AI vào hệ sinh thái Fullstack Web (Django, RESTful APIs)</span>
+                      </li>
+                      <li class="stack-highlight-item">
+                        <span class="stack-highlight-bullet" aria-hidden="true">▸</span>
+                        <span>Rèn luyện phương pháp quản trị Agile/Scrum & Kỹ thuật tối ưu truy vấn SQL</span>
+                      </li>
+                    </ul>
+                    <p class="stack-stage-desc">
+                      Đưa giải pháp vào thực tế sản xuất: tự động hóa luồng dữ liệu end-to-end, tối ưu hóa độ trễ truy vấn CSDL, nâng cao khả năng cộng tác nhóm và hoàn thiện các đề tài Capstone khoa học.
+                    </p>
+                  </div>
                   <div class="stack-stage-skills">
                     <span class="skill-chip active">Production Pipeline</span>
                     <span class="skill-chip active">Fullstack AI Systems</span>
@@ -1009,13 +1121,30 @@
                     <div class="card-year-badge">
                       <span class="year-num emerald">Tương lai</span>
                       <span class="stage-tag tag-future">★ MỤC TIÊU CHIẾN LƯỢC</span>
+                      <span class="stage-role-tag role-future">Technical Leadership</span>
                     </div>
                     <span class="card-phase-index">GIAI ĐOẠN 04 / 04 (TẦM NHÌN)</span>
                   </div>
-                  <h3 class="stack-stage-title">IT Project Manager (Technical Leadership)</h3>
-                  <p class="stack-stage-desc">
-                    Trở thành Nhà quản trị Dự án Công nghệ thông tin (IT Project Manager) có nền tảng kỹ thuật sâu sắc về Data & AI. Dẫn dắt các đội ngũ kỹ sư kiến tạo các giải pháp chuyển đổi số bền vững, cầu nối vững chắc giữa bài toán kinh doanh và năng lực công nghệ cao.
-                  </p>
+                  <div class="stack-card-body">
+                    <h3 class="stack-stage-title">IT Project Manager (Technical Leadership)</h3>
+                    <ul class="stack-stage-highlights" aria-label="Cột mốc tiêu biểu">
+                      <li class="stack-highlight-item">
+                        <span class="stack-highlight-bullet" aria-hidden="true">▸</span>
+                        <span>Quản trị dự án CNTT chuyên sâu kỹ thuật Data Engineering, AI & Big Data</span>
+                      </li>
+                      <li class="stack-highlight-item">
+                        <span class="stack-highlight-bullet" aria-hidden="true">▸</span>
+                        <span>Hoạch định chiến lược công nghệ & Cầu nối giải pháp giữa Tech và Business</span>
+                      </li>
+                      <li class="stack-highlight-item">
+                        <span class="stack-highlight-bullet" aria-hidden="true">▸</span>
+                        <span>Dẫn dắt đội ngũ kỹ thuật liên chức năng bàn giao sản phẩm chuyển đổi số</span>
+                      </li>
+                    </ul>
+                    <p class="stack-stage-desc">
+                      Trở thành Nhà quản trị Dự án CNTT sở hữu nền tảng công nghệ chuyên sâu về Data & AI. Dẫn dắt các giải pháp chuyển đổi số bền vững, đảm bảo bàn giao sản phẩm đúng tiến độ, chất lượng và tạo ra giá trị thực.
+                    </p>
+                  </div>
                   <div class="stack-stage-skills">
                     <span class="skill-chip future">IT Project Management</span>
                     <span class="skill-chip future">Data & AI Strategy</span>
@@ -1034,26 +1163,61 @@
 
       <!-- ================= CONTACT & CONNECT SECTION ================= -->
       <section id="contact" class="page-section contact-section">
-        <div class="section-header" style="text-align: center;">
+        <div class="section-header section-header-center">
           <span class="section-tag">KẾT NỐI VÀ HỢP TÁC</span>
           <h2 class="section-title">Sẵn sàng Trao đổi & Hợp tác</h2>
-          <p class="section-desc" style="margin: 0 auto;">
+          <p class="section-desc section-desc-center">
             Tôi luôn hào hứng trao đổi về các bài toán Data Engineering, Machine Learning, AI Systems, hoặc cơ hội thực tập / việc làm trong lĩnh vực Data & Project Management.
           </p>
         </div>
 
-        <div class="contact-links">
-          <a href="mailto:hthehy.tech9083@gmail.com" class="contact-btn">
-            <span>✉️ Gửi Email: hthehy.tech9083@gmail.com</span>
+        <div class="contact-grid">
+          <!-- Email Card with Copy Action -->
+          <div class="contact-card tilt-card">
+            <div class="contact-card-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </div>
+            <div class="contact-card-info">
+              <span class="contact-card-label">Email trực tiếp</span>
+              <a href="mailto:hthehy.tech9083@gmail.com" class="contact-card-value">hthehy.tech9083@gmail.com</a>
+            </div>
+            <button type="button" class="btn-copy-email" id="btn-copy-email" data-email="hthehy.tech9083@gmail.com" aria-label="Sao chép địa chỉ email" title="Sao chép email">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Sao chép</span>
+            </button>
+          </div>
+
+          <!-- LinkedIn Card -->
+          <a href="https://www.linkedin.com/in/hy-huynh-the-4a2174332/" target="_blank" rel="noopener noreferrer" class="contact-card tilt-card contact-card-link">
+            <div class="contact-card-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </div>
+            <div class="contact-card-info">
+              <span class="contact-card-label">Mạng lưới Chuyên nghiệp</span>
+              <span class="contact-card-value">LinkedIn Profile ↗</span>
+            </div>
           </a>
-          <a href="https://www.linkedin.com/in/hy-huynh-the-4a2174332/" target="_blank" rel="noopener noreferrer" class="contact-btn">
-            <span>💼 LinkedIn Profile</span>
+
+          <!-- GitHub Card -->
+          <a href="https://github.com/Thehy-IT" target="_blank" rel="noopener noreferrer" class="contact-card tilt-card contact-card-link">
+            <div class="contact-card-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            </div>
+            <div class="contact-card-info">
+              <span class="contact-card-label">Kho lưu trữ Mã nguồn</span>
+              <span class="contact-card-value">GitHub: Thehy-IT ↗</span>
+            </div>
           </a>
-          <a href="https://github.com/Thehy-IT" target="_blank" rel="noopener noreferrer" class="contact-btn">
-            <span>🐙 GitHub: Thehy-IT</span>
-          </a>
-          <a href="https://lequocdung64.github.io/Members/051205009083_HuynhTheHy.html" target="_blank" rel="noopener noreferrer" class="contact-btn">
-            <span>🎓 UTH-HCMC Profile (051205009083)</span>
+
+          <!-- UTH Profile Card -->
+          <a href="https://lequocdung64.github.io/Members/051205009083_HuynhTheHy.html" target="_blank" rel="noopener noreferrer" class="contact-card tilt-card contact-card-link">
+            <div class="contact-card-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+            </div>
+            <div class="contact-card-info">
+              <span class="contact-card-label">Hồ sơ Sinh viên UTH-HCMC</span>
+              <span class="contact-card-value">MSSV: 051205009083 ↗</span>
+            </div>
           </a>
         </div>
       </section>
@@ -1062,7 +1226,7 @@
 
     <!-- Site Footer -->
     <footer class="site-footer" role="contentinfo">
-      <p style="margin-bottom: 0.5rem;">
+      <p class="footer-copy">
         &copy; 2026 <strong>Huỳnh Thế Hy</strong> • ĐH Giao thông Vận tải TP.HCM (UTH-HCMC) • KHOA HỌC DỮ LIỆU
       </p>
     </footer>
@@ -1077,7 +1241,7 @@
     </button>
 
     <!-- Compact Floating Badge when Minimized -->
-    <div id="mascot-compact-badge" class="mascot-compact-badge" title="Nhấn để đánh thức TensorBot!" aria-hidden="true">
+    <div id="mascot-compact-badge" class="mascot-compact-badge" aria-label="Nhấn để đánh thức TensorBot!" aria-hidden="true">
       <span class="compact-eye">●</span>
       <span class="compact-mouth">‿</span>
       <span class="compact-eye">●</span>
@@ -1093,13 +1257,19 @@
       <div class="mascot-speech-bubble" role="status" aria-live="polite">
         <div class="speech-bot-header">
           <span class="speech-bot-tag">TENSORBOT // TRỢ LÝ AI 3D</span>
+          <button id="btn-close-mascot-speech" class="btn-close-mascot-speech" type="button" aria-label="Đóng bong bóng thoại" title="Đóng">✕</button>
         </div>
         <p class="mascot-speech-text">Chào bạn! Tôi là TensorBot, linh vật trợ lý AI của Huỳnh Thế Hy! 👋</p>
       </div>
 
       <!-- 3D Mascot Entity with Dynamic Cursor Tilt & Specular Lighting -->
-      <div class="mascot-avatar" id="mascot-avatar" title="Nhấn vào tôi để trò chuyện!">
+      <div class="mascot-avatar" id="mascot-avatar">
         
+        <!-- Floating Holographic Mood Emote Halo -->
+        <div class="mascot-mood-halo" id="mascot-mood-halo" aria-hidden="true">
+          <span class="mood-icon" id="mascot-mood-icon">✨</span>
+        </div>
+
         <!-- Antenna with Signal Waves & High-Luminance Beacon -->
         <div class="mascot-antenna">
           <div class="antenna-rod"></div>
@@ -1115,30 +1285,63 @@
           <div class="ear-core"></div>
         </div>
 
+        <!-- Floating Magnetic Robotic Hands (Gesture & Wave) -->
+        <div class="mascot-hand hand-left" id="mascot-hand-left" aria-hidden="true">
+          <div class="hand-palm"></div>
+          <div class="hand-glow"></div>
+        </div>
+        <div class="mascot-hand hand-right" id="mascot-hand-right" aria-hidden="true">
+          <div class="hand-palm"></div>
+          <div class="hand-glow"></div>
+        </div>
+
         <!-- 3D Helmet Head -->
-        <div class="mascot-head">
+        <div class="mascot-head" id="mascot-head">
           <!-- Dynamic Top Specular Highlight Glare -->
           <div class="helmet-highlight"></div>
           <!-- Bevel Chiseled Rim Light -->
           <div class="helmet-rim-glow"></div>
+          <!-- Cyber Seam Line -->
+          <div class="helmet-seam"></div>
 
-          <!-- Glossy Curved Visor with HUD Reflections -->
+          <!-- Expressive Cyber Eyebrows -->
+          <div class="mascot-eyebrows" aria-hidden="true">
+            <div class="mascot-eyebrow eyebrow-left"></div>
+            <div class="mascot-eyebrow eyebrow-right"></div>
+          </div>
+
+          <!-- Glossy Curved OLED Visor with Glass Reflections -->
           <div class="mascot-visor">
             <div class="visor-reflection"></div>
+            <div class="visor-scanlines" aria-hidden="true"></div>
+
+            <!-- Left Eye with Animated Eyelids & Double Catchlights -->
             <div class="mascot-eye mascot-eye-left">
+              <div class="eyelid eyelid-top"></div>
               <div class="eye-iris">
-                <div class="pupil"></div>
+                <div class="pupil">
+                  <span class="eye-glint glint-primary"></span>
+                  <span class="eye-glint glint-secondary"></span>
+                </div>
               </div>
+              <div class="eyelid eyelid-bottom"></div>
             </div>
+
+            <!-- Right Eye with Animated Eyelids & Double Catchlights -->
             <div class="mascot-eye mascot-eye-right">
+              <div class="eyelid eyelid-top"></div>
               <div class="eye-iris">
-                <div class="pupil"></div>
+                <div class="pupil">
+                  <span class="eye-glint glint-primary"></span>
+                  <span class="eye-glint glint-secondary"></span>
+                </div>
               </div>
+              <div class="eyelid eyelid-bottom"></div>
             </div>
           </div>
 
-          <!-- Expressive Mouth -->
-          <div class="mascot-mouth"></div>
+          <!-- Expressive Dynamic Mouth -->
+          <div class="mascot-mouth" id="mascot-mouth"></div>
 
           <!-- Glowing Cheek Status Indicators -->
           <div class="mascot-cheek mascot-cheek-left"></div>
@@ -1151,16 +1354,30 @@
           <div class="mascot-reactor-core">
             <div class="reactor-pulse"></div>
           </div>
-          <div class="mascot-arm mascot-arm-left"></div>
-          <div class="mascot-arm mascot-arm-right"></div>
           <!-- Plasma Jet Hover Thruster Glow -->
           <div class="mascot-thruster"></div>
+          <div class="thruster-sparks" aria-hidden="true">
+            <span class="spark s1"></span>
+            <span class="spark s2"></span>
+            <span class="spark s3"></span>
+          </div>
         </div>
 
       </div>
 
     </div>
   </aside>
+
+  <!-- Floating Back to Top Action Button -->
+  <button id="btn-back-to-top" class="btn-back-to-top" type="button" aria-label="Cuộn lên đầu trang" title="Cuộn lên đầu trang">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"></polyline></svg>
+  </button>
+
+  <!-- Cyber Toast Notification for Actions -->
+  <div id="cyber-toast" class="cyber-toast" role="status" aria-live="polite" aria-hidden="true">
+    <span class="toast-icon">✓</span>
+    <span id="toast-message" class="toast-message">Thao tác thành công</span>
+  </div>
 
   <!-- JavaScript Modules -->
   <script src="js/audio.js"></script>
