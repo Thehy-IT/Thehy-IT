@@ -151,100 +151,138 @@ Neural network architectures applied to computer vision and NLP.
 <tr>
 <td width="50%" valign="top">
 
-### Social Media Storage System
+### Social Media Crawler & NoSQL Storage
 **NoSQL Architecture · Python · MongoDB · Redis**
 
-A five-layer storage system for a social media platform — routing each data type to the storage layer built for it.
+A five-layer tiered storage system for social media data — routing hot caches and documents into high-performance NoSQL backends.
 
-- Clear tiered architecture: hot cache (Redis) → document store (MongoDB) → relational layer
-- Mock-fallback mechanism keeps the system running when a service is down
-- Full unit test coverage plus a detailed architecture diagram
+- Clear tiered architecture: hot cache (Redis) → document store (MongoDB) → analytical layer
+- Mock-fallback mechanism ensuring seamless failover when a service is unavailable
+- Automated crawler with rate-limiting and robust data pipeline
 
-`#DataEngineering` `#SystemDesign` `#NoSQL`
+`#DataEngineering` `#SystemDesign` `#NoSQL` `#BigData`
 
-*Group project, supervised by MSc. Hàn Trung Định, UT-HCMC*
+*Course Big Data & Applications, supervised by MSc. Hàn Trung Định, UTH*
+
+[View repository →](https://github.com/Thehy-IT/course-bda-lab-nosql-crawler)
 
 </td>
 <td width="50%" valign="top">
 
-### AI-Assisted DICOM System
+### AI-Assisted DICOM Medical Imaging
 **Fullstack · AI · T-SQL · Medical Imaging**
 
-A DICOM image management system with AI-assisted diagnostic support — where software engineering meets real medical practice.
+A DICOM image management platform with AI-assisted diagnostic support — where software engineering meets real medical practice.
 
-- Medical image analysis with an AI model integrated directly into the workflow
-- Fullstack architecture from database to UI
-- Standard-compliant DICOM format handling
+- Medical image analysis with an AI model integrated directly into diagnostic workflows
+- Fullstack architecture from normalized T-SQL database schemas to frontend UI
+- Standard-compliant DICOM format handling and clinical metadata extraction
 
 `#AI` `#Fullstack` `#T-SQL` `#Healthcare`
 
-[View repository →](https://github.com/Thehy-IT/Project_CNphanmem_fullstack)
+[View repository →](https://github.com/Thehy-IT/capstone-dicom-ai-diagnosis)
 
 </td>
 </tr>
 <tr>
 <td width="50%" valign="top">
 
-### Data Mining & ML Lab
-**Algorithms · scikit-learn · Research**
+### ASEAN Regional Overview Analysis
+**Data Analytics · Python · Pandas · Macro Insights**
 
-Data mining algorithms implemented from scratch, no black boxes — understanding every step of each model.
+Macroeconomic and regional data analytics project analyzing key economic and demographic indicators across 10 Southeast Asian nations.
 
-- Manual implementations: Apriori, FP-Growth, Decision Tree, KNN, and more
-- Performance and accuracy compared across multiple real datasets
-- Fully documented notebooks explaining each step
+- Deep exploratory data analysis (EDA) of macro indicators across ASEAN countries
+- Automated end-to-end data cleaning, imputation, and validation pipeline
+- Actionable data-driven insights and interactive analytical dashboards
 
-`#DataMining` `#MachineLearning` `#Research`
+`#DataAnalysis` `#Pandas` `#EDA` `#ASEAN`
 
-[data-mining-algo →](https://github.com/Thehy-IT/data-mining-algo) · [Machine-learning →](https://github.com/Thehy-IT/Machine-learning)
+[View repository →](https://github.com/Thehy-IT/capstone-asean_overview_analysis)
 
 </td>
 <td width="50%" valign="top">
 
-### Deep Learning Experiments
-**Neural Networks · Computer Vision · NLP**
+### Brain Tumor MRI AI Detection
+**Deep Learning · CNN · Medical Vision · PyTorch**
 
-Neural network architectures built and trained from MLP fundamentals through to CNN, applied to real-world problems.
+Computer vision deep learning model designed to detect and classify brain tumors from magnetic resonance imaging (MRI) scans.
 
-- Systematic experimentation with recorded, comparable results
-- Focused on understanding mechanisms — not just getting a result, but explaining it
-- Applied to real-world datasets
+- Medical image preprocessing: intensity normalization, skull striping, artifact filtering
+- Convolutional Neural Network (CNN) architecture optimized for high diagnostic sensitivity
+- Comprehensive Jupyter Notebooks with feature map visualization
 
-`#DeepLearning` `#NeuralNetworks` `#AI`
+`#DeepLearning` `#ComputerVision` `#CNN` `#Healthcare`
 
-[View repository →](https://github.com/Thehy-IT/Deep_learning)
+[View repository →](https://github.com/Thehy-IT/capstone-brain-tumor-mri)
 
 </td>
 </tr>
 <tr>
 <td width="50%" valign="top">
 
-### HR & Payroll Management
-**MySQL · Database Design · Normalization**
+### Banking Fraud Detection (SBDA-SA)
+**Big Data · Streaming Analytics · Anomaly Detection · Fintech**
 
-An HR and payroll management system — database normalized to 3NF, with detailed technical documentation.
+Streaming Big Data Analytics (SBDA) final capstone processing high-volume transaction streams in real-time to prevent financial fraud.
 
-- Normalized schema handling complex HR business logic
-- Stored procedures for payroll calculation logic
-- Full ER diagram and documentation
+- High-throughput, low-latency financial transaction stream ingestion
+- Anomaly detection algorithms identifying suspicious transaction patterns
+- End-to-end distributed data architecture from streaming ingestion to alerts
 
-`#MySQL` `#DatabaseDesign` `#Normalization`
+`#BigData` `#StreamingAnalytics` `#Fintech` `#Python`
+
+[View repository →](https://github.com/Thehy-IT/capstone-banking-fraud-detection)
 
 </td>
 <td width="50%" valign="top">
 
-### Library Management System
-**Django · Python · Fullstack MVC**
+### E-Commerce Enterprise Lakehouse
+**Lakehouse Architecture · Big Data · Medallion Design · ETL**
 
-A library management system built on Django — a fullstack exercise using an enterprise-standard Python framework.
+Data Lakehouse system designed for an e-commerce enterprise, merging Data Lake flexibility with Data Warehouse analytical rigor.
 
-- Django ORM, views, templates, and admin panel in practice
-- Book borrowing/returns, member management, reporting
-- Clean codebase organized around Django best practices
+- Medallion architecture implementation (Bronze, Silver, Gold data layers)
+- Unified batch and stream transformations driving BI and customer analytics
+- Optimized schema and data partitioning for high-concurrency order querying
 
-`#Django` `#Python` `#Fullstack`
+`#Lakehouse` `#BigData` `#DataArchitecture` `#ETL`
 
-[View repository →](https://github.com/Thehy-IT/Library_Management_py_frw-Django)
+[View repository →](https://github.com/Thehy-IT/course-bda-lab-lakehouse)
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### HR & Payroll Management (DBMS)
+**Database Design · 3NF Normalization · MySQL · TypeScript**
+
+An enterprise HR and payroll management system with rigorous 3NF schema normalization and automated stored procedures.
+
+- 3NF-compliant relational database schema eliminating anomalies and data redundancy
+- Stored procedures and triggers automating salary calculations, tax, and benefits
+- Complete ER diagram and technical architecture specification
+
+`#MySQL` `#DatabaseDesign` `#Normalization` `#TypeScript`
+
+[View repository →](https://github.com/Thehy-IT/capstone-hr-payroll-system)
+
+</td>
+<td width="50%" valign="top">
+
+### Online Quiz & Examination Platform
+**Web Application · Python · OOP · Educational Technology**
+
+A centralized quiz examination platform featuring automated grading, question bank management, and randomized assessments.
+
+- Structured question bank and dynamic test generation with randomization algorithms
+- Automated evaluation and instant scoring engine
+- Role-based access control and student performance analytics
+
+`#EdTech` `#Python` `#OOP` `#SoftwareEngineering`
+
+[View repository →](https://github.com/Thehy-IT/capstone-quiz-examination-system)
 
 </td>
 </tr>

@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Huỳnh Thế Hy - Data Engineer • Machine Learning Practitioner • Future IT Project Manager. Khám phá portfolio tương tác 3D và linh vật AI theo dõi chuột." />
+  <meta name="theme-color" content="#070B14" />
+  <title>Huỳnh Thế Hy | Data Engineer & ML Practitioner | Interactive 3D Portfolio</title>
+
+  <!-- Google Fonts: Space Grotesk, Inter, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Continuous 3D Background Canvas (Runs continuously from top to bottom) -->
+  <canvas id="neural-canvas-3d" aria-hidden="true"></canvas>
+
+  <div class="app-container">
+
+    <!-- Top System Health Bar -->
+    <aside class="system-status-bar" aria-label="System status">
+      <div class="status-bar-content">
+        <div class="status-item">
+          <span class="status-indicator"></span>
+          <span>HỆ THỐNG: UTH-HCMC KHOA HỌC DỮ LIỆU // ONLINE</span>
+        </div>
+        <div class="status-item">
+          <span>ĐỘ TRỄ: <strong id="system-latency" class="cyan">1.2ms</strong></span>
+        </div>
+        <div class="status-item">
+          <span>RENDER: <strong id="system-fps" class="emerald">60 FPS</strong></span>
+        </div>
+        <div class="status-item">
+          <span>GIỜ MÁY CHỦ: <span id="system-clock">00:00:00</span></span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Navigation Header -->
+    <header class="site-header" role="banner">
+      <div class="nav-container">
+        <a href="#hero" class="brand-logo" aria-label="Trang chủ Huỳnh Thế Hy">
+          <span class="brand-text">THEHY-IT</span>
+          <span class="brand-badge">v3.0_PRO</span>
+        </a>
+
+        <!-- Desktop Navigation (Strictly Single Line, Never Wraps) -->
+        <nav class="nav-menu" role="navigation" aria-label="Menu chính">
+          <a href="#about" class="nav-link">Về tôi</a>
+          <a href="#specializations" class="nav-link">Chuyên môn</a>
+          <a href="#ml-lab" class="nav-link">ML Lab</a>
+          <a href="#pipeline" class="nav-link">Kiến trúc 5 tầng</a>
+          <a href="#projects" class="nav-link">Dự án</a>
+          <a href="#tech-stack" class="nav-link">Tech Stack</a>
+          <a href="#terminal" class="nav-link">Terminal</a>
+          <a href="#roadmap" class="nav-link">Lộ trình</a>
+          <a href="#contact" class="nav-link">Liên hệ</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button id="btn-toggle-audio" class="btn-audio-toggle audio-active" type="button" aria-pressed="true" title="Bật/Tắt hiệu ứng âm thanh cyber">
+            <span class="audio-icon" aria-hidden="true">🔊</span>
+            <span class="audio-text">Âm thanh: BẬT</span>
+          </button>
+
+          <!-- Mobile Hamburger Toggle -->
+          <button id="btn-mobile-menu" class="btn-mobile-menu" type="button" aria-label="Mở menu điều hướng" aria-expanded="false" aria-controls="mobile-nav-drawer">
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Navigation Drawer -->
+      <div id="mobile-nav-drawer" class="mobile-nav-drawer" aria-hidden="true">
+        <div class="drawer-header">
+          <span class="drawer-title">ĐIỀU HƯỚNG DỰ ÁN</span>
+          <button id="btn-close-drawer" class="btn-close-drawer" type="button" aria-label="Đóng menu">✕</button>
+        </div>
+        <nav class="drawer-links" role="navigation" aria-label="Menu di động">
+          <a href="#about" class="drawer-link"><span class="drawer-icon">🧠</span> <span class="drawer-text">Về tôi</span></a>
+          <a href="#specializations" class="drawer-link"><span class="drawer-icon"></span> <span class="drawer-text">Chuyên môn</span></a>
+          <a href="#ml-lab" class="drawer-link"><span class="drawer-icon"></span> <span class="drawer-text">ML Lab</span></a>
+          <a href="#pipeline" class="drawer-link"><span class="drawer-icon"></span> <span class="drawer-text">Kiến trúc 5 tầng</span></a>
+          <a href="#projects" class="drawer-link"><span class="drawer-icon"></span> <span class="drawer-text">Dự án</span></a>
+          <a href="#tech-stack" class="drawer-link"><span class="drawer-icon"></span> <span class="drawer-text">Tech Stack</span></a>
+          <a href="#terminal" class="drawer-link"><span class="drawer-icon">💻</span> <span class="drawer-text">Terminal</span></a>
+          <a href="#roadmap" class="drawer-link"><span class="drawer-icon"></span> <span class="drawer-text">Lộ trình</span></a>
+          <a href="#contact" class="drawer-link"><span class="drawer-icon"></span> <span class="drawer-text">Liên hệ</span></a>
+        </nav>
+      </div>
+      <div id="drawer-backdrop" class="drawer-backdrop" aria-hidden="true"></div>
+    </header>
+
+    <main id="main-content" role="main">
+
+      <!-- ================= HERO SECTION ================= -->
+      <section id="hero" class="page-section hero-section">
+        <div class="hero-content">
+          <div class="hero-tag">
+            <span class="status-indicator"></span>
+            <span>DATA & AI PRACTITIONER // FUTURE IT PM</span>
+          </div>
+
+          <h1 class="hero-name">
+            <span class="hero-name-gradient">Huỳnh Thế Hy</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            Turning raw data into high-value decisions 
+          </p>
+
+          <p class="hero-bio">
+            Sinh viên Công nghệ Thông tin tại <strong>ĐH Giao thông Vận tải TP.HCM (UTH-HCMC)</strong>. 
+            Tập trung kiến trúc dữ liệu quy mô lớn, huấn luyện mô hình Machine Learning thực chiến, 
+            và phát triển tư duy dẫn dắt dự án công nghệ có chiều sâu kỹ thuật.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#ml-lab" class="btn-primary">
+              <span>Khám phá ML Lab</span>
+            </a>
+            <a href="#projects" class="btn-secondary">
+              <span>Xem các dự án</span>
+            </a>
+            <a href="#contact" class="btn-secondary">
+              <span>Kết nối trực tiếp</span>
+            </a>
+          </div>
+
+          <div class="hero-metrics-grid">
+            <div class="metric-item">
+              <span class="metric-value cyan">8+</span>
+              <span class="metric-label">DỰ ÁN DATA & FULLSTACK</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value emerald">3NF & NoSQL</span>
+              <span class="metric-label">CHUẨN HÓA KIẾN TRÚC</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value amber">99.2%</span>
+              <span class="metric-label">ETL PIPELINE HEALTH</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">UTH-HCMC</span>
+              <span class="metric-label">MSSV: 051205009083</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-code-card tilt-card" aria-label="Mã nguồn mô tả hồ sơ cá nhân">
+            <div class="code-card-header">
+              <div class="window-dots" aria-hidden="true">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <span class="code-filename">thehy_profile.py</span>
+              <button class="btn-copy-code" data-target="#hero-py-code" type="button">Sao chép</button>
+            </div>
+            <pre class="code-body"><code id="hero-py-code"><span class="code-keyword">class</span> <span class="code-class">HuynhTheHy</span>:
+    <span class="code-var">role</span>       = <span class="code-string">"Data & AI Enthusiast | Future IT PM"</span>
+    <span class="code-var">university</span> = <span class="code-string">"UTH-HCMC — KHOA HỌC DỮ LIỆU"</span>
+    <span class="code-var">mssv</span>       = <span class="code-string">"051205009083"</span>
+    <span class="code-var">focus</span>      = [<span class="code-string">"Data Engineering"</span>, <span class="code-string">"Machine Learning"</span>, <span class="code-string">"Deep Learning"</span>]
+    <span class="code-var">philosophy</span> = <span class="code-string">"Structured code. Clean data. Clear decisions."</span>
+
+    <span class="code-keyword">def</span> <span class="code-class">goal</span>(<span class="code-var">self</span>) -&gt; <span class="code-keyword">str</span>:
+        <span class="code-keyword">return</span> <span class="code-string">"Master full data lifecycle: collect → clean → model → deploy → decide"</span></code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= ABOUT SECTION ================= -->
+      <section id="about" class="page-section">
+        <div class="section-header">
+          <span class="section-tag">HỒ SƠ CÁ NHÂN</span>
+          <h2 class="section-title">Về tôi & Triết lý Dữ liệu</h2>
+          <p class="section-desc">
+            Không dừng lại ở việc học lý thuyết, tôi tập trung vào việc biến dữ liệu hỗn loạn thành những giải pháp có kiến trúc rõ ràng và giá trị thực tế.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-card tilt-card">
+            <div class="about-avatar-wrapper">
+              <img src="https://github.com/Thehy-IT.png" alt="Ảnh đại diện Huỳnh Thế Hy" class="about-avatar" onerror="this.src='https://images.unsplash.com/photo-1534972195531-a756b1126f24?w=260&h=260&fit=crop&crop=faces'" />
+              <div class="radar-sweep" aria-hidden="true"></div>
+            </div>
+
+            <blockquote class="about-quote">
+              "Dữ liệu không nói dối — chỉ cần biết cách lắng nghe nó."
+            </blockquote>
+
+            <ul class="about-details-list">
+              <li class="about-detail-row">
+                <span class="detail-label">Họ và tên:</span>
+                <span class="detail-value">Huỳnh Thế Hy</span>
+              </li>
+              <li class="about-detail-row">
+                <span class="detail-label">Trường đào tạo:</span>
+                <span class="detail-value">ĐH GTVT TP.HCM (UTH-HCMC)</span>
+              </li>
+              <li class="about-detail-row">
+                <span class="detail-label">Mã số sinh viên:</span>
+                <span class="detail-value cyan">051205009083</span>
+              </li>
+              <li class="about-detail-row">
+                <span class="detail-label">Chuyên ngành:</span>
+                <span class="detail-value">Công nghệ Thông tin</span>
+              </li>
+              <li class="about-detail-row">
+                <span class="detail-label">Định hướng dài hạn:</span>
+                <span class="detail-value emerald">Technical IT Project Manager</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="about-card tilt-card">
+            <h3 class="spec-title" style="margin-bottom: 1rem; color: var(--accent-cyan-light);">Tại sao kết hợp Data Science & IT Project Management?</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1.25rem;">
+              Trong kỷ nguyên dữ liệu và AI bùng nổ, một Project Manager không có nền tảng kỹ thuật sâu sắc sẽ gặp khó khăn lớn trong việc ước lượng độ phức tạp của thuật toán, chi phí pipeline, và tính khả thi của mô hình học máy.
+            </p>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+              Mục tiêu của tôi là trở thành <strong>cầu nối vững chắc</strong> giữa bài toán nghiệp vụ kinh doanh và đội ngũ kỹ thuật: hiểu rõ từ cách tối ưu truy vấn SQL, kiến trúc sharding NoSQL, đánh giá độ lệch (bias/variance) của mô hình ML, cho đến phương pháp điều phối dự án chuẩn Agile/Scrum.
+            </p>
+
+            <div class="spec-tags">
+              <span class="spec-tag">Pipeline Design</span>
+              <span class="spec-tag">Cross-functional Leadership</span>
+              <span class="spec-tag">Risk Assessment</span>
+              <span class="spec-tag">Data-driven Strategy</span>
+              <span class="spec-tag">Technical Depth</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SPECIALIZATIONS SECTION ================= -->
+      <section id="specializations" class="page-section">
+        <div class="section-header">
+          <span class="section-tag">NĂNG LỰC CỐT LÕI</span>
+          <h2 class="section-title">4 Trụ cột Chuyên môn</h2>
+          <p class="section-desc">
+            Trang bị kiến thức toàn diện từ tầng lưu trữ dữ liệu thô đến mô hình trí tuệ nhân tạo chuyên sâu.
+          </p>
+        </div>
+
+        <div class="specializations-grid">
+          <div class="spec-card tilt-card">
+            <div>
+              <div class="spec-icon" aria-hidden="true">🗄️</div>
+              <h3 class="spec-title">Data Engineering</h3>
+              <p class="spec-desc">
+                Thiết kế CSDL chuẩn hóa 3NF, phân tầng hot/cold cache, tối ưu hóa truy vấn phức tạp và thiết kế pipeline ETL tự động.
+              </p>
+            </div>
+            <div class="spec-tags">
+              <span class="spec-tag">SQL</span>
+              <span class="spec-tag">NoSQL</span>
+              <span class="spec-tag">ETL</span>
+              <span class="spec-tag">Schema Design</span>
+            </div>
+          </div>
+
+          <div class="spec-card tilt-card">
+            <div>
+              <div class="spec-icon" aria-hidden="true">🔍</div>
+              <h3 class="spec-title">Data Mining</h3>
+              <p class="spec-desc">
+                Khai phá tri thức từ tập dữ liệu lớn, phân tích luật kết hợp, phân cụm khách hàng và nhận diện hành vi dị thường.
+              </p>
+            </div>
+            <div class="spec-tags">
+              <span class="spec-tag">Apriori</span>
+              <span class="spec-tag">FP-Growth</span>
+              <span class="spec-tag">Clustering</span>
+              <span class="spec-tag">Association</span>
+            </div>
+          </div>
+
+          <div class="spec-card tilt-card">
+            <div>
+              <div class="spec-icon" aria-hidden="true">🤖</div>
+              <h3 class="spec-title">Machine Learning</h3>
+              <p class="spec-desc">
+                Huấn luyện, tinh chỉnh siêu tham số và đánh giá các mô hình học có giám sát/không giám sát với scikit-learn.
+              </p>
+            </div>
+            <div class="spec-tags">
+              <span class="spec-tag">Regression</span>
+              <span class="spec-tag">Classification</span>
+              <span class="spec-tag">Scikit-learn</span>
+              <span class="spec-tag">F1-Score</span>
+            </div>
+          </div>
+
+          <div class="spec-card tilt-card">
+            <div>
+              <div class="spec-icon" aria-hidden="true">🧬</div>
+              <h3 class="spec-title">Deep Learning</h3>
+              <p class="spec-desc">
+                Kiến trúc mạng nơ-ron đa lớp, mạng tích chập (CNN) ứng dụng trong xử lý hình ảnh y tế chuẩn DICOM và thị giác máy tính.
+              </p>
+            </div>
+            <div class="spec-tags">
+              <span class="spec-tag">Neural Nets</span>
+              <span class="spec-tag">CNN</span>
+              <span class="spec-tag">TensorFlow</span>
+              <span class="spec-tag">Computer Vision</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= INTERACTIVE ML LAB SECTION ================= -->
+      <section id="ml-lab" class="page-section">
+        <div class="section-header">
+          <span class="section-tag">TRẢI NGHIỆM TƯƠNG TÁC</span>
+          <h2 class="section-title">Interactive Machine Learning Lab</h2>
+          <p class="section-desc">
+            Mô phỏng trực tiếp quá trình huấn luyện Mạng Nơ-ron Phân loại 2D ngay trong trình duyệt. Bạn có thể thay đổi tập dữ liệu, tinh chỉnh Learning Rate và quan sát ranh giới quyết định (Decision Boundary) dịch chuyển theo thời gian thực!
+          </p>
+        </div>
+
+        <div class="ml-lab-container tilt-card">
+          <div class="ml-lab-grid">
+            <!-- Left: Decision Boundary Canvas -->
+            <div class="canvas-panel">
+              <div class="panel-title-bar">
+                <span>RANH GIỚI QUYẾT ĐỊNH (DECISION BOUNDARY)</span>
+                <span class="cyan">● Lớp 0 (Xanh lam) | ● Lớp 1 (Lục)</span>
+              </div>
+              <canvas id="playground-canvas" width="360" height="320" aria-label="Biểu đồ ranh giới quyết định phân lớp"></canvas>
+            </div>
+
+            <!-- Right: Loss Chart & Confusion Matrix -->
+            <div class="canvas-panel">
+              <div class="panel-title-bar">
+                <span>HÀM MẤT MÁT J(θ) & ĐỘ CHÍNH XÁC (ACCURACY)</span>
+                <span class="amber">Hàm mất mát</span>
+              </div>
+              <canvas id="loss-chart-canvas" width="360" height="180" aria-label="Biểu đồ hàm mất mát theo epoch"></canvas>
+
+              <!-- Confusion Matrix & Metrics Display -->
+              <div style="width: 100%; margin-top: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                <div>
+                  <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.3rem;">MA TRẬN NHẦM LẪN (CONFUSION MATRIX)</div>
+                  <div class="confusion-matrix-box">
+                    <div class="cm-cell"><div class="cm-cell-label">TP</div><div id="cm-tp" class="cm-cell-val emerald">0</div></div>
+                    <div class="cm-cell"><div class="cm-cell-label">FP</div><div id="cm-fp" class="cm-cell-val amber">0</div></div>
+                    <div class="cm-cell"><div class="cm-cell-label">FN</div><div id="cm-fn" class="cm-cell-val amber">0</div></div>
+                    <div class="cm-cell"><div class="cm-cell-label">TN</div><div id="cm-tn" class="cm-cell-val cyan">0</div></div>
+                  </div>
+                </div>
+
+                <div style="font-family: var(--font-mono); font-size: 0.8rem; display: flex; flex-direction: column; gap: 0.4rem;">
+                  <div>Precision: <strong id="cm-precision" class="emerald">0%</strong></div>
+                  <div>F1-Score: <strong id="cm-f1" class="cyan">0.00</strong></div>
+                  <div>Epoch: <strong id="label-epoch">0</strong></div>
+                  <div>Loss J(θ): <strong id="label-loss" class="amber">0.0000</strong></div>
+                  <div>Accuracy: <strong id="label-accuracy" class="emerald">0.0%</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Controls Bar -->
+          <div class="ml-controls-bar">
+            <div class="control-group">
+              <label for="select-dataset" class="control-label">Tập dữ liệu:</label>
+              <select id="select-dataset" class="select-cyber">
+                <option value="circles">Concentric Circles (Vòng tròn đồng tâm)</option>
+                <option value="moons">Two Moons (Hai nửa vầng trăng)</option>
+                <option value="xor">XOR Multi-quadrant (Mẫu XOR phi tuyến)</option>
+              </select>
+            </div>
+
+            <div class="control-group">
+              <label for="slider-lr" class="control-label">Learning Rate (α): <span id="label-lr">0.08</span></label>
+              <input id="slider-lr" class="slider-cyber" type="range" min="0.01" max="0.25" step="0.01" value="0.08" />
+            </div>
+
+            <div class="control-group">
+              <button id="btn-train" class="btn-train" type="button">
+                <span class="btn-icon">▶</span> Bắt đầu huấn luyện
+              </button>
+              <button id="btn-step" class="btn-secondary" style="padding: 0.45rem 0.85rem; font-size: 0.8rem;" type="button">
+                Bước +5 Epoch
+              </button>
+              <button id="btn-reset" class="btn-secondary" style="padding: 0.45rem 0.85rem; font-size: 0.8rem;" type="button">
+                Khởi tạo lại
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 5-TIER PIPELINE ARCHITECTURE ================= -->
+      <section id="pipeline" class="page-section">
+        <div class="section-header">
+          <span class="section-tag">KIẾN TRÚC HỆ THỐNG</span>
+          <h2 class="section-title">Hệ thống Lưu trữ Dữ liệu 5 Tầng</h2>
+          <p class="section-desc">
+            Kiến trúc đa tầng được Thế Hy thiết kế cho hệ thống mạng xã hội chịu tải cao: đặt đúng loại dữ liệu vào đúng loại kho lưu trữ để tối ưu thông lượng và độ trễ. Nhấn vào từng tầng để xem chi tiết kỹ thuật!
+          </p>
+        </div>
+
+        <div class="pipeline-diagram">
+          <div class="pipeline-step active" data-step="1">
+            <div class="step-number">TẦNG 01</div>
+            <div class="step-title">Source Ingestion</div>
+          </div>
+          <div class="pipeline-step" data-step="2">
+            <div class="step-number">TẦNG 02</div>
+            <div class="step-title">Redis Cache</div>
+          </div>
+          <div class="pipeline-step" data-step="3">
+            <div class="step-number">TẦNG 03</div>
+            <div class="step-title">MongoDB NoSQL</div>
+          </div>
+          <div class="pipeline-step" data-step="4">
+            <div class="step-number">TẦNG 04</div>
+            <div class="step-title">Relational 3NF</div>
+          </div>
+          <div class="pipeline-step" data-step="5">
+            <div class="step-number">TẦNG 05</div>
+            <div class="step-title">AI Analytics</div>
+          </div>
+        </div>
+
+        <div class="pipeline-detail-card tilt-card">
+          <div id="pipeline-detail-title" class="pipeline-detail-title">Tầng 1: Source Ingestion & API Gateway</div>
+          <p id="pipeline-detail-desc" class="pipeline-detail-desc">
+            Tiếp nhận luồng tương tác mạng xã hội theo thời gian thực (posts, likes, user activities) với rate limiting và schema validation.
+          </p>
+          <div class="pipeline-detail-meta">
+            <span>Công nghệ: <strong id="pipeline-detail-tech">FastAPI / Django REST • JSON Schema • Pydantic</strong></span>
+            <span>Thông số: <strong id="pipeline-detail-metric">Throughput: ~12,500 req/s | Buffer: 0.2ms</strong></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PROJECTS SECTION ================= -->
+      <section id="projects" class="page-section">
+        <div class="section-header">
+          <span class="section-tag">KHO DỰ ÁN</span>
+          <h2 class="section-title">Dự án Kỹ thuật Nổi bật</h2>
+          <p class="section-desc">
+            Tất cả các dự án đều hướng tới việc giải quyết bài toán thực tế, có tài liệu kiến trúc, mã nguồn mở và kiểm thử hệ thống.
+          </p>
+        </div>
+
+        <div class="projects-grid">
+          <!-- Project 1 -->
+          <article class="tilt-card" aria-labelledby="p1-title">
+            <div class="project-category">SYSTEM DESIGN & DATA PIPELINE</div>
+            <h3 id="p1-title" class="project-title">Social Media Crawler & Tiered NoSQL Storage</h3>
+            <p class="project-desc">
+              Hệ thống thu thập dữ liệu profile mạng xã hội tự động, xử lý và lưu trữ phân cấp 5 tầng NoSQL (Redis Hot Cache → MongoDB Document Store).
+            </p>
+            <ul class="project-highlights">
+              <li class="project-highlight-item">Phân tầng: Hot cache (Redis) → Document store (MongoDB) → Phân tích</li>
+              <li class="project-highlight-item">Cơ chế mock fallback tự động giúp hệ thống không gián đoạn khi service gặp sự cố</li>
+              <li class="project-highlight-item">Đồ án môn Big Data & Ứng dụng — hướng dẫn bởi Th.S Hàn Trung Định (UTH)</li>
+            </ul>
+            <div class="project-footer">
+              <div class="project-tech-badges">
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">MongoDB</span>
+                <span class="tech-badge">Redis</span>
+                <span class="tech-badge">NoSQL</span>
+              </div>
+              <a href="https://github.com/Thehy-IT/course-bda-lab-nosql-crawler" target="_blank" rel="noopener noreferrer" class="project-link">
+                Xem Repo ↗
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="tilt-card" aria-labelledby="p2-title">
+            <div class="project-category">HEALTHCARE AI & FULLSTACK</div>
+            <h3 id="p2-title" class="project-title">AI-Assisted DICOM System</h3>
+            <p class="project-desc">
+              Hệ thống quản lý hình ảnh y tế DICOM chuẩn quốc tế tích hợp mô hình AI hỗ trợ bác sĩ chẩn đoán tự động trên ảnh X-Quang / CT.
+            </p>
+            <ul class="project-highlights">
+              <li class="project-highlight-item">Tích hợp mô hình AI phân tích ảnh y tế vào quy trình chẩn đoán</li>
+              <li class="project-highlight-item">Kiến trúc fullstack từ cơ sở dữ liệu T-SQL đến giao diện người dùng</li>
+              <li class="project-highlight-item">Xử lý định dạng tệp chuẩn DICOM ngành y tế</li>
+            </ul>
+            <div class="project-footer">
+              <div class="project-tech-badges">
+                <span class="tech-badge">AI / ML</span>
+                <span class="tech-badge">DICOM</span>
+                <span class="tech-badge">T-SQL</span>
+                <span class="tech-badge">Fullstack</span>
+              </div>
+              <a href="https://github.com/Thehy-IT/capstone-dicom-ai-diagnosis" target="_blank" rel="noopener noreferrer" class="project-link">
+                Xem Repo ↗
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="tilt-card" aria-labelledby="p3-title">
+            <div class="project-category">MACRO DATA & ANALYTICS</div>
+            <h3 id="p3-title" class="project-title">ASEAN Regional Overview Analysis</h3>
+            <p class="project-desc">
+              Dự án phân tích toàn cảnh kinh tế - xã hội khu vực Đông Nam Á (ASEAN). Tích hợp tổng hợp dữ liệu, làm sạch tự động, EDA và báo cáo trực quan hóa đa chiều.
+            </p>
+            <ul class="project-highlights">
+              <li class="project-highlight-item">Phân tích chuyên sâu chỉ số kinh tế vĩ mô & xu hướng xã hội 10 quốc gia</li>
+              <li class="project-highlight-item">Xây dựng pipeline làm sạch và chuẩn hóa dataset quy mô khu vực</li>
+              <li class="project-highlight-item">Báo cáo phân tích dữ liệu toàn diện với trực quan hóa tương tác</li>
+            </ul>
+            <div class="project-footer">
+              <div class="project-tech-badges">
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">Pandas</span>
+                <span class="tech-badge">EDA</span>
+                <span class="tech-badge">Data Analysis</span>
+              </div>
+              <a href="https://github.com/Thehy-IT/capstone-asean_overview_analysis" target="_blank" rel="noopener noreferrer" class="project-link">
+                Xem Repo ↗
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 4 -->
+          <article class="tilt-card" aria-labelledby="p4-title">
+            <div class="project-category">DEEP LEARNING & COMPUTER VISION</div>
+            <h3 id="p4-title" class="project-title">Brain Tumor MRI AI Detection</h3>
+            <p class="project-desc">
+              Đồ án thực tế Khoa học Dữ liệu: Xây dựng và huấn luyện mô hình học sâu (CNN / Deep Learning) nhằm phát hiện và dự đoán chính xác khối u não từ ảnh chụp cộng hưởng từ MRI.
+            </p>
+            <ul class="project-highlights">
+              <li class="project-highlight-item">Tiền xử lý ảnh y tế chuyên sâu: chuẩn hóa cường độ, lọc nhiễu và data augmentation</li>
+              <li class="project-highlight-item">Tối ưu hóa kiến trúc Convolutional Neural Network (CNN) đạt độ chính xác cao</li>
+              <li class="project-highlight-item">Jupyter Notebook minh chứng thực nghiệm và trực quan hóa feature maps</li>
+            </ul>
+            <div class="project-footer">
+              <div class="project-tech-badges">
+                <span class="tech-badge">Deep Learning</span>
+                <span class="tech-badge">CNN</span>
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">Jupyter</span>
+              </div>
+              <a href="https://github.com/Thehy-IT/capstone-brain-tumor-mri" target="_blank" rel="noopener noreferrer" class="project-link">
+                Xem Repo ↗
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 5 -->
+          <article class="tilt-card" aria-labelledby="p5-title">
+            <div class="project-category">BIG DATA & STREAMING ANALYTICS</div>
+            <h3 id="p5-title" class="project-title">Banking Fraud Detection (SBDA-SA)</h3>
+            <p class="project-desc">
+              Đồ án cuối kỳ Big Data và Ứng dụng: Xây dựng giải pháp Streaming Big Data Analytics (SBDA) phân tích luồng dữ liệu thời gian thực và phát hiện bất thường giao dịch gian lận ngân hàng.
+            </p>
+            <ul class="project-highlights">
+              <li class="project-highlight-item">Xử lý luồng dữ liệu giao dịch tài chính thời gian thực (Real-time Stream)</li>
+              <li class="project-highlight-item">Tích hợp mô hình phát hiện gian lận và phân tích sắc thái dữ liệu</li>
+              <li class="project-highlight-item">Kiến trúc dữ liệu phân tán quy mô lớn đảm bảo độ trễ thấp</li>
+            </ul>
+            <div class="project-footer">
+              <div class="project-tech-badges">
+                <span class="tech-badge">Big Data</span>
+                <span class="tech-badge">Streaming</span>
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">Fintech</span>
+              </div>
+              <a href="https://github.com/Thehy-IT/capstone-banking-fraud-detection" target="_blank" rel="noopener noreferrer" class="project-link">
+                Xem Repo ↗
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 6 -->
+          <article class="tilt-card" aria-labelledby="p6-title">
+            <div class="project-category">DATA LAKEHOUSE ARCHITECTURE</div>
+            <h3 id="p6-title" class="project-title">E-Commerce Enterprise Lakehouse</h3>
+            <p class="project-desc">
+              Xây dựng và thiết kế hệ thống Data Lakehouse cho công ty thương mại điện tử: hợp nhất khả năng lưu trữ linh hoạt của Data Lake với năng lực phân tích của Data Warehouse.
+            </p>
+            <ul class="project-highlights">
+              <li class="project-highlight-item">Kiến trúc phân tầng dữ liệu Medallion Architecture (Bronze - Silver - Gold)</li>
+              <li class="project-highlight-item">Xử lý và chuyển đổi dữ liệu phục vụ Business Intelligence và Machine Learning</li>
+              <li class="project-highlight-item">Tối ưu hóa schema và phân vùng lưu trữ cho dữ liệu đơn hàng & người dùng</li>
+            </ul>
+            <div class="project-footer">
+              <div class="project-tech-badges">
+                <span class="tech-badge">Lakehouse</span>
+                <span class="tech-badge">Big Data</span>
+                <span class="tech-badge">ETL / ELT</span>
+                <span class="tech-badge">Jupyter</span>
+              </div>
+              <a href="https://github.com/Thehy-IT/course-bda-lab-lakehouse" target="_blank" rel="noopener noreferrer" class="project-link">
+                Xem Repo ↗
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 7 -->
+          <article class="tilt-card" aria-labelledby="p7-title">
+            <div class="project-category">DATABASE DESIGN & 3NF</div>
+            <h3 id="p7-title" class="project-title">HR & Payroll Management (DBMS)</h3>
+            <p class="project-desc">
+              Hệ thống quản lý nhân sự và tính lương tự động với cơ sở dữ liệu được chuẩn hóa nghiêm ngặt đến dạng chuẩn 3 (3NF), giải quyết bài toán quản trị HRM toàn diện.
+            </p>
+            <ul class="project-highlights">
+              <li class="project-highlight-item">Thiết kế schema chuẩn hóa 3NF, loại bỏ hoàn toàn dị thường dư thừa dữ liệu</li>
+              <li class="project-highlight-item">Sử dụng Stored Procedures và Triggers xử lý nghiệp vụ tính lương phức tạp</li>
+              <li class="project-highlight-item">Sơ đồ thực thể quan hệ ERD và tài liệu thiết kế hệ thống chi tiết</li>
+            </ul>
+            <div class="project-footer">
+              <div class="project-tech-badges">
+                <span class="tech-badge">TypeScript</span>
+                <span class="tech-badge">MySQL</span>
+                <span class="tech-badge">3NF</span>
+                <span class="tech-badge">DBMS</span>
+              </div>
+              <a href="https://github.com/Thehy-IT/capstone-hr-payroll-system" target="_blank" rel="noopener noreferrer" class="project-link">
+                Xem Repo ↗
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 8 -->
+          <article class="tilt-card" aria-labelledby="p8-title">
+            <div class="project-category">EDTECH & OOP ARCHITECTURE</div>
+            <h3 id="p8-title" class="project-title">Quiz & Examination Platform</h3>
+            <p class="project-desc">
+              Hệ thống quản lý ngân hàng câu hỏi, tổ chức thi trắc nghiệm và chấm điểm tự động, quản lý tài nguyên và kết quả thi có cấu trúc rõ ràng.
+            </p>
+            <ul class="project-highlights">
+              <li class="project-highlight-item">Quản lý kho tài nguyên câu hỏi, đề thi và cấu trúc dữ liệu khoa học</li>
+              <li class="project-highlight-item">Thuật toán xáo trộn câu hỏi ngẫu nhiên và chấm điểm tự động</li>
+              <li class="project-highlight-item">Phân quyền người dùng và thống kê năng lực học tập trực quan</li>
+            </ul>
+            <div class="project-footer">
+              <div class="project-tech-badges">
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">OOP</span>
+                <span class="tech-badge">Database</span>
+                <span class="tech-badge">EdTech</span>
+              </div>
+              <a href="https://github.com/Thehy-IT/capstone-quiz-examination-system" target="_blank" rel="noopener noreferrer" class="project-link">
+                Xem Repo ↗
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ================= TECH STACK SECTION ================= -->
+      <section id="tech-stack" class="page-section">
+        <div class="section-header">
+          <span class="section-tag">CÔNG NGHỆ SỬ DỤNG</span>
+          <h2 class="section-title">Ma trận Kỹ thuật & Công cụ</h2>
+          <p class="section-desc">
+            Chọn lọc những công nghệ cốt lõi phục vụ luồng xử lý dữ liệu và phát triển phần mềm chuẩn doanh nghiệp.
+          </p>
+        </div>
+
+        <div class="stack-filter-nav" role="tablist">
+          <button class="stack-filter-btn active" data-filter="all" type="button">Tất cả</button>
+          <button class="stack-filter-btn" data-filter="data" type="button">Data & AI</button>
+          <button class="stack-filter-btn" data-filter="db" type="button">Databases</button>
+          <button class="stack-filter-btn" data-filter="backend" type="button">Backend</button>
+          <button class="stack-filter-btn" data-filter="tools" type="button">DevOps & Tools</button>
+        </div>
+
+        <div class="stack-grid">
+          <!-- Python -->
+          <div class="stack-item tilt-card" data-category="data">
+            <img src="https://skillicons.dev/icons?i=python" alt="Python" class="stack-icon-img" />
+            <div class="stack-info">
+              <span class="stack-name">Python</span>
+              <span class="stack-role">Ngôn ngữ phân tích & ML chính</span>
+            </div>
+          </div>
+
+          <!-- Pandas -->
+          <div class="stack-item tilt-card" data-category="data">
+            <img src="https://skillicons.dev/icons?i=py" alt="Pandas" class="stack-icon-img" />
+            <div class="stack-info">
+              <span class="stack-name">Pandas / NumPy</span>
+              <span class="stack-role">Thao tác & tính toán ma trận</span>
+            </div>
+          </div>
+
+          <!-- Scikit-learn -->
+          <div class="stack-item tilt-card" data-category="data">
+            <img src="https://skillicons.dev/icons?i=scikitlearn" alt="Scikit-learn" class="stack-icon-img" />
+            <div class="stack-info">
+              <span class="stack-name">scikit-learn</span>
+              <span class="stack-role">Thuật toán học máy cổ điển</span>
+            </div>
+          </div>
+
+          <!-- TensorFlow -->
+          <div class="stack-item tilt-card" data-category="data">
+            <img src="https://skillicons.dev/icons?i=tensorflow" alt="TensorFlow" class="stack-icon-img" />
+            <div class="stack-info">
+              <span class="stack-name">TensorFlow</span>
+              <span class="stack-role">Mạng nơ-ron học sâu</span>
+            </div>
+          </div>
+
+          <!-- MySQL -->
+          <div class="stack-item tilt-card" data-category="db">
+            <img src="https://skillicons.dev/icons?i=mysql" alt="MySQL" class="stack-icon-img" />
+            <div class="stack-info">
+              <span class="stack-name">MySQL</span>
+              <span class="stack-role">CSDL quan hệ chuẩn 3NF</span>
+            </div>
+          </div>
+
+          <!-- MongoDB -->
+          <div class="stack-item tilt-card" data-category="db">
+            <img src="https://skillicons.dev/icons?i=mongodb" alt="MongoDB" class="stack-icon-img" />
+            <div class="stack-info">
+              <span class="stack-name">MongoDB</span>
+              <span class="stack-role">NoSQL Document Store</span>
+            </div>
+          </div>
+
+          <!-- Redis -->
+          <div class="stack-item tilt-card" data-category="db">
+            <img src="https://skillicons.dev/icons?i=redis" alt="Redis" class="stack-icon-img" />
+            <div class="stack-info">
+              <span class="stack-name">Redis</span>
+              <span class="stack-role">In-Memory Hot Caching</span>
+            </div>
+          </div>
+
+          <!-- SQL Server -->
+          <div class="stack-item tilt-card" data-category="db">
+            <img src="https://skillicons.dev/icons?i=postgres" alt="Postgres / T-SQL" class="stack-icon-img" />
+            <div class="stack-info">
+              <span class="stack-name">T-SQL / PostgreSQL</span>
+              <span class="stack-role">Truy vấn nâng cao & Stored Proc</span>
+            </div>
+          </div>
+
+          <!-- Django -->
+          <div class="stack-item tilt-card" data-category="backend">
+            <img src="https://skillicons.dev/icons?i=django" alt="Django" class="stack-icon-img" />
+            <div class="stack-info">
+              <span class="stack-name">Django</span>
+              <span class="stack-role">Backend MVC chuẩn doanh nghiệp</span>
+            </div>
+          </div>
+
+          <!-- Docker -->
+          <div class="stack-item tilt-card" data-category="tools">
+            <img src="https://skillicons.dev/icons?i=docker" alt="Docker" class="stack-icon-img" />
+            <div class="stack-info">
+              <span class="stack-name">Docker</span>
+              <span class="stack-role">Đóng gói container dịch vụ</span>
+            </div>
+          </div>
+
+          <!-- Git & GitHub -->
+          <div class="stack-item tilt-card" data-category="tools">
+            <img src="https://skillicons.dev/icons?i=git" alt="Git" class="stack-icon-img" />
+            <div class="stack-info">
+              <span class="stack-name">Git / GitHub Actions</span>
+              <span class="stack-role">Quản lý mã nguồn & CI/CD</span>
+            </div>
+          </div>
+
+          <!-- Jupyter -->
+          <div class="stack-item tilt-card" data-category="tools">
+            <img src="https://skillicons.dev/icons?i=vscode" alt="VS Code & Jupyter" class="stack-icon-img" />
+            <div class="stack-info">
+              <span class="stack-name">VS Code & Jupyter</span>
+              <span class="stack-role">Môi trường nghiên cứu dữ liệu</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= INTERACTIVE TERMINAL SECTION ================= -->
+      <section id="terminal" class="page-section">
+        <div class="section-header">
+          <span class="section-tag">DÒNG LỆNH KỸ THUẬT</span>
+          <h2 class="section-title">Interactive Data Terminal</h2>
+          <p class="section-desc">
+            Dành cho các kỹ sư và nhà tuyển dụng muốn tương tác trực tiếp qua console. Hãy gõ <code class="code-var">help</code>, <code class="code-var">bio</code>, <code class="code-var">skills</code> hoặc <code class="code-var">predict</code> để chạy mô hình đánh giá!
+          </p>
+        </div>
+
+        <div class="terminal-wrapper tilt-card">
+          <div class="terminal-header">
+            <div class="window-dots" aria-hidden="true">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <span>hy@datascience-lab: ~ (bash / zsh)</span>
+            <span>SSH-256</span>
+          </div>
+
+          <div id="terminal-output" class="terminal-body">
+            <div class="terminal-line cmd-result">Chào mừng bạn đến với Terminal của Huỳnh Thế Hy v3.0!</div>
+            <div class="terminal-line cmd-result">Gõ <strong>'help'</strong> để xem danh sách các lệnh khả dụng, hoặc <strong>'predict'</strong> để kiểm tra độ tương thích vị trí công việc.</div>
+          </div>
+
+          <div class="terminal-prompt-bar">
+            <span class="prompt-symbol">hy@lab:~$</span>
+            <input id="terminal-input" class="terminal-input" type="text" placeholder="Nhập lệnh tại đây (vd: help, bio, skills, predict, contact)..." autocomplete="off" spellcheck="false" aria-label="Nhập lệnh terminal" />
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= ROADMAP SECTION ================= -->
+      <section id="roadmap" class="page-section">
+        <div class="section-header">
+          <span class="section-tag">LỘ TRÌNH PHÁT TRIỂN</span>
+          <h2 class="section-title">Hành trình Sự nghiệp</h2>
+          <p class="section-desc">
+            Kế hoạch phát triển bài bản từ nền tảng lập trình vững chắc đến năng lực lãnh đạo dự án công nghệ cao.
+          </p>
+        </div>
+
+        <div class="roadmap-timeline">
+          <div class="roadmap-card tilt-card">
+            <span class="roadmap-year">2024</span>
+            <h3 class="roadmap-stage">Nền tảng Kỹ thuật</h3>
+            <p class="roadmap-desc">
+              Làm chủ Cấu trúc Dữ liệu & Giải thuật, OOP, Thiết kế CSDL quan hệ chuẩn hóa 3NF, tư duy lập trình hệ thống.
+            </p>
+          </div>
+
+          <div class="roadmap-card tilt-card">
+            <span class="roadmap-year">2025</span>
+            <h3 class="roadmap-stage">Chuyên sâu Data & AI</h3>
+            <p class="roadmap-desc">
+              Triển khai giải thuật Data Mining (Apriori, FP-Growth), Machine Learning, Deep Learning CNN, kiến trúc lưu trữ NoSQL 5 tầng.
+            </p>
+          </div>
+
+          <div class="roadmap-card current tilt-card">
+            <span class="roadmap-year cyan">2026 (Hiện tại)</span>
+            <h3 class="roadmap-stage">Ứng dụng Thực tế</h3>
+            <p class="roadmap-desc">
+              Xây dựng Production Data Pipelines, tích hợp AI vào hệ thống fullstack, rèn luyện tư duy quản trị dự án kỹ thuật và dẫn dắt nhóm.
+            </p>
+          </div>
+
+          <div class="roadmap-card tilt-card">
+            <span class="roadmap-year emerald">Tương lai</span>
+            <h3 class="roadmap-stage">IT Project Manager</h3>
+            <p class="roadmap-desc">
+              Dẫn dắt các đội ngũ kỹ thuật phát triển sản phẩm dữ liệu và AI chiến lược cho doanh nghiệp, đảm bảo tiến độ, kiến trúc và giá trị thực tiễn.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= CONTACT & CONNECT SECTION ================= -->
+      <section id="contact" class="page-section contact-section">
+        <div class="section-header" style="text-align: center;">
+          <span class="section-tag">KẾT NỐI VÀ HỢP TÁC</span>
+          <h2 class="section-title">Sẵn sàng Trao đổi & Hợp tác</h2>
+          <p class="section-desc" style="margin: 0 auto;">
+            Tôi luôn hào hứng trao đổi về các bài toán Data Engineering, Machine Learning, AI Systems, hoặc cơ hội thực tập / việc làm trong lĩnh vực Data & Project Management.
+          </p>
+        </div>
+
+        <div class="contact-links">
+          <a href="mailto:hthehy.tech9083@gmail.com" class="contact-btn">
+            <span>✉️ Gửi Email: hthehy.tech9083@gmail.com</span>
+          </a>
+          <a href="https://www.linkedin.com/in/hy-huynh-the-4a2174332/" target="_blank" rel="noopener noreferrer" class="contact-btn">
+            <span>💼 LinkedIn Profile</span>
+          </a>
+          <a href="https://github.com/Thehy-IT" target="_blank" rel="noopener noreferrer" class="contact-btn">
+            <span>🐙 GitHub: Thehy-IT</span>
+          </a>
+          <a href="https://lequocdung64.github.io/Members/051205009083_HuynhTheHy.html" target="_blank" rel="noopener noreferrer" class="contact-btn">
+            <span>🎓 UTH-HCMC Profile (051205009083)</span>
+          </a>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer" role="contentinfo">
+      <p style="margin-bottom: 0.5rem;">
+        &copy; 2026 <strong>Huỳnh Thế Hy</strong> • ĐH Giao thông Vận tải TP.HCM (UTH-HCMC) • KHOA HỌC DỮ LIỆU
+      </p>
+    </footer>
+
+  </div>
+
+  <!-- ================= INTERACTIVE MASCOT: TENSORBOT (Linh vật nhìn theo chuột) ================= -->
+  <aside id="tensor-mascot-widget" aria-label="Linh vật tương tác TensorBot">
+    <!-- Minimize / Expand Toggle Button -->
+    <button id="btn-toggle-mascot" class="mascot-toggle-btn" type="button" aria-label="Thu nhỏ hoặc mở rộng linh vật" title="Thu nhỏ / Mở rộng linh vật">
+      <span class="toggle-symbol">−</span>
+    </button>
+
+    <!-- Compact Floating Badge when Minimized -->
+    <div id="mascot-compact-badge" class="mascot-compact-badge" title="Nhấn để đánh thức TensorBot!" aria-hidden="true">
+      <span class="compact-eye">●</span>
+      <span class="compact-mouth">‿</span>
+      <span class="compact-eye">●</span>
+    </div>
+
+    <div class="mascot-container">
+      
+      <!-- Speech Bubble -->
+      <div class="mascot-speech-bubble" role="status" aria-live="polite">
+        <p class="mascot-speech-text">Chào bạn! Tôi là TensorBot, linh vật trợ lý AI của Huỳnh Thế Hy! 👋</p>
+      </div>
+
+      <!-- 3D Mascot Head & Body -->
+      <div class="mascot-head" title="Nhấn vào tôi để trò chuyện!">
+        
+        <!-- Antenna with pulsing glow -->
+        <div class="mascot-antenna">
+          <div class="antenna-light"></div>
+        </div>
+
+        <!-- Visor with dynamic tracking eyes -->
+        <div class="mascot-visor">
+          <div class="mascot-eye mascot-eye-left">
+            <div class="pupil"></div>
+          </div>
+          <div class="mascot-eye mascot-eye-right">
+            <div class="pupil"></div>
+          </div>
+        </div>
+
+        <!-- Animated smile mouth -->
+        <div class="mascot-mouth"></div>
+
+        <!-- Floating core status orb -->
+        <div class="mascot-orb"></div>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- JavaScript Modules -->
+  <script src="js/audio.js"></script>
+  <script src="js/scene3d.js"></script>
+  <script src="js/mascot.js"></script>
+  <script src="js/playground.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
