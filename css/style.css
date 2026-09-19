@@ -1504,48 +1504,288 @@ body {
   outline: none;
 }
 
-/* --- Personal Roadmap Section --- */
-.roadmap-timeline {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
+/* ==========================================================================
+   ROADMAP SECTION: STACKING CARDS ON SCROLL (Thẻ xếp chồng đè lên nhau)
+   ========================================================================== */
+.roadmap-stack-section {
   position: relative;
+  /* Scroll track length: allows smooth step-by-step card stacking */
+  height: 330vh;
+  padding: 0 !important;
+  margin: 0 0 2rem 0;
+  box-sizing: border-box;
 }
 
-.roadmap-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-md);
-  padding: 1.5rem;
+/* Sticky stage viewport: Pinned to screen while user scrolls through the 330vh track */
+.roadmap-sticky-wrapper {
+  position: sticky;
+  top: 70px;
+  height: calc(100vh - 70px);
+  max-height: 880px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1.5rem 1.5rem 1rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.roadmap-header {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 1.15rem;
+  flex-shrink: 0;
+}
+
+/* Interactive Timeline Stepper (Mốc thời gian) */
+.roadmap-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  position: relative;
+  margin-top: 0.85rem;
+  flex-wrap: wrap;
 }
 
-.roadmap-card.current {
-  border-color: var(--accent-cyan);
-  background: rgba(14, 165, 233, 0.08);
-}
-
-.roadmap-year {
+.roadmap-step-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(14, 22, 38, 0.75);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  padding: 0.35rem 0.85rem;
   font-family: var(--font-mono);
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--accent-cyan-light);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  backdrop-filter: blur(8px);
 }
 
-.roadmap-stage {
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
-  font-weight: 700;
+.roadmap-step-pill:hover {
+  border-color: var(--accent-cyan);
   color: var(--text-primary);
 }
 
-.roadmap-desc {
-  font-size: 0.85rem;
+.roadmap-step-pill.active {
+  background: rgba(14, 165, 233, 0.16);
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan-light);
+  box-shadow: 0 0 14px var(--accent-cyan-glow);
+}
+
+.pill-year {
+  font-weight: 700;
+}
+
+.pill-label {
+  font-size: 0.72rem;
+  opacity: 0.85;
+}
+
+.stepper-arrow {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  user-select: none;
+}
+
+/* Cards Deck Stage */
+.roadmap-deck {
+  position: relative;
+  width: 100%;
+  max-width: 780px;
+  height: 330px;
+  margin: 0.5rem auto 0;
+  perspective: 1200px;
+  flex-shrink: 0;
+}
+
+/* Individual Stacking Card */
+.roadmap-stack-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 230px;
+  background: linear-gradient(155deg, #162438 0%, #0d1522 60%, #080d16 100%);
+  border: 1.5px solid rgba(56, 189, 248, 0.35);
+  border-radius: 20px;
+  padding: 1.6rem 2.2rem;
+  box-sizing: border-box;
+  box-shadow:
+    0 -10px 32px rgba(0, 0, 0, 0.82),
+    0 14px 40px rgba(0, 0, 0, 0.85),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.22);
+  transform-origin: center top;
+  will-change: transform, opacity, filter;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.roadmap-stack-card.current-stage {
+  border-color: var(--accent-cyan);
+  background: linear-gradient(155deg, #182d47 0%, #0e1a2b 60%, #08111d 100%);
+  box-shadow:
+    0 -10px 32px rgba(0, 0, 0, 0.85),
+    0 16px 44px rgba(0, 0, 0, 0.9),
+    0 0 24px rgba(6, 182, 212, 0.25),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.3);
+}
+
+.roadmap-stack-card.future-stage {
+  border-color: var(--accent-emerald);
+  background: linear-gradient(155deg, #153238 0%, #0c2024 60%, #071518 100%);
+  box-shadow:
+    0 -10px 32px rgba(0, 0, 0, 0.85),
+    0 16px 44px rgba(0, 0, 0, 0.9),
+    0 0 24px rgba(16, 185, 129, 0.25),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.3);
+}
+
+/* Card Header with Year & Status */
+.stack-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0.75rem;
+}
+
+.card-year-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.year-num {
+  font-family: var(--font-mono);
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.year-num.cyan {
+  color: var(--accent-cyan-light);
+  text-shadow: 0 0 12px var(--accent-cyan-glow);
+}
+
+.year-num.emerald {
+  color: var(--accent-emerald-light);
+  text-shadow: 0 0 12px var(--accent-emerald-glow);
+}
+
+.stage-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.04em;
+}
+
+.tag-complete {
+  background: rgba(148, 163, 184, 0.15);
+  color: #cbd5e1;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.tag-mastered {
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--accent-cyan-light);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+}
+
+.tag-active {
+  background: rgba(6, 182, 212, 0.2);
+  color: var(--accent-cyan-light);
+  border: 1px solid var(--accent-cyan);
+  animation: pulse-border 2s infinite ease-in-out;
+}
+
+.tag-future {
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--accent-emerald-light);
+  border: 1px solid var(--accent-emerald);
+}
+
+.card-phase-index {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+}
+
+.stack-stage-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.6rem;
+  line-height: 1.35;
+}
+
+.stack-stage-desc {
+  font-size: 0.88rem;
+  line-height: 1.55;
   color: var(--text-secondary);
-  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.stack-stage-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.skill-chip {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  background: rgba(30, 41, 59, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+}
+
+.skill-chip.active {
+  border-color: rgba(56, 189, 248, 0.4);
+  color: var(--accent-cyan-light);
+  background: rgba(14, 165, 233, 0.1);
+}
+
+.skill-chip.future {
+  border-color: rgba(16, 185, 129, 0.4);
+  color: var(--accent-emerald-light);
+  background: rgba(16, 185, 129, 0.1);
+}
+
+/* Scroll Hint at bottom of sticky stage */
+.roadmap-scroll-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  opacity: 0.85;
+  transition: opacity var(--transition-normal);
+  user-select: none;
+}
+
+.roadmap-scroll-hint .hint-arrow {
+  animation: bounce-down 1.6s ease-in-out infinite;
+  color: var(--accent-cyan);
+}
+
+@keyframes bounce-down {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
 }
 
 /* --- Contact & Footer --- */
@@ -2268,9 +2508,8 @@ body {
     min-width: 180px;
     flex-shrink: 0;
   }
-  .roadmap-timeline {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
+  .roadmap-deck {
+    max-width: 680px;
   }
   .ml-lab-grid {
     grid-template-columns: 1fr;
@@ -2329,9 +2568,41 @@ body {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.85rem;
   }
-  .roadmap-timeline {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+  /* Roadmap Stacking Cards on Mobile */
+  .roadmap-stack-section {
+    height: 300vh;
+  }
+  .roadmap-sticky-wrapper {
+    top: 58px;
+    height: calc(100vh - 58px);
+    padding: 1rem 0.85rem 0.65rem;
+  }
+  .roadmap-deck {
+    height: 370px;
+    max-width: 100%;
+  }
+  .roadmap-stack-card {
+    padding: 1.15rem 1.15rem;
+    min-height: 250px;
+    border-radius: 16px;
+  }
+  .stack-stage-title {
+    font-size: 1.05rem;
+  }
+  .stack-stage-desc {
+    font-size: 0.82rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.45;
+  }
+  .year-num {
+    font-size: 1.2rem;
+  }
+  .roadmap-stepper {
+    gap: 0.35rem;
+  }
+  .roadmap-step-pill {
+    padding: 0.25rem 0.55rem;
+    font-size: 0.72rem;
   }
   
   /* ML Lab Mobile Sizing */

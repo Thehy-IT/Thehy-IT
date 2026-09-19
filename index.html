@@ -870,48 +870,140 @@
         </div>
       </section>
 
-      <!-- ================= ROADMAP SECTION ================= -->
-      <section id="roadmap" class="page-section">
-        <div class="section-header">
-          <span class="section-tag">LỘ TRÌNH PHÁT TRIỂN</span>
-          <h2 class="section-title">Hành trình Sự nghiệp</h2>
-          <p class="section-desc">
-            Kế hoạch phát triển bài bản từ nền tảng lập trình vững chắc đến năng lực lãnh đạo dự án công nghệ cao.
-          </p>
-        </div>
-
-        <div class="roadmap-timeline">
-          <div class="roadmap-card tilt-card">
-            <span class="roadmap-year">2024</span>
-            <h3 class="roadmap-stage">Nền tảng Kỹ thuật</h3>
-            <p class="roadmap-desc">
-              Làm chủ Cấu trúc Dữ liệu & Giải thuật, OOP, Thiết kế CSDL quan hệ chuẩn hóa 3NF, tư duy lập trình hệ thống.
+      <!-- ================= ROADMAP SECTION: STACKING CARDS ON SCROLL ================= -->
+      <section id="roadmap" class="page-section roadmap-stack-section" aria-label="Lộ trình phát triển sự nghiệp">
+        <div class="roadmap-sticky-wrapper">
+          
+          <div class="section-header roadmap-header">
+            <span class="section-tag">LỘ TRÌNH PHÁT TRIỂN</span>
+            <h2 class="section-title">Hành trình Sự nghiệp</h2>
+            <p class="section-desc">
+              Kế hoạch phát triển bài bản từ nền tảng lập trình vững chắc đến năng lực lãnh đạo dự án công nghệ cao.
             </p>
+
+            <!-- Interactive Step Indicator / Timeline Pills -->
+            <div class="roadmap-stepper" role="tablist" aria-label="Các mốc thời gian">
+              <button class="roadmap-step-pill active" data-step="0" type="button" aria-selected="true" aria-controls="card-step-0">
+                <span class="pill-year">2024</span>
+                <span class="pill-label">Nền tảng</span>
+              </button>
+              <span class="stepper-arrow" aria-hidden="true">→</span>
+              <button class="roadmap-step-pill" data-step="1" type="button" aria-selected="false" aria-controls="card-step-1">
+                <span class="pill-year">2025</span>
+                <span class="pill-label">Data & AI</span>
+              </button>
+              <span class="stepper-arrow" aria-hidden="true">→</span>
+              <button class="roadmap-step-pill" data-step="2" type="button" aria-selected="false" aria-controls="card-step-2">
+                <span class="pill-year">2026</span>
+                <span class="pill-label">Hiện tại</span>
+              </button>
+              <span class="stepper-arrow" aria-hidden="true">→</span>
+              <button class="roadmap-step-pill" data-step="3" type="button" aria-selected="false" aria-controls="card-step-3">
+                <span class="pill-year">Tương lai</span>
+                <span class="pill-label">Project Manager</span>
+              </button>
+            </div>
           </div>
 
-          <div class="roadmap-card tilt-card">
-            <span class="roadmap-year">2025</span>
-            <h3 class="roadmap-stage">Chuyên sâu Data & AI</h3>
-            <p class="roadmap-desc">
-              Triển khai giải thuật Data Mining (Apriori, FP-Growth), Machine Learning, Deep Learning CNN, kiến trúc lưu trữ NoSQL 5 tầng.
-            </p>
+          <!-- Stacking Cards Deck Viewport -->
+          <div class="roadmap-deck" id="roadmap-deck">
+            
+            <!-- Card 0: 2024 -->
+            <article class="roadmap-stack-card" id="card-step-0" data-step="0" style="--card-index: 0;">
+              <div class="stack-card-header">
+                <div class="card-year-badge">
+                  <span class="year-num">2024</span>
+                  <span class="stage-tag tag-complete">✓ ĐÃ HOÀN THÀNH</span>
+                </div>
+                <span class="card-phase-index">GIAI ĐOẠN 01 / 04</span>
+              </div>
+              <h3 class="stack-stage-title">Nền tảng Kỹ thuật & Tư duy Hệ thống</h3>
+              <p class="stack-stage-desc">
+                Xây dựng nền móng khoa học máy tính vững chắc: làm chủ Cấu trúc Dữ liệu & Giải thuật (DSA), lập trình hướng đối tượng (OOP), tư duy phân tích độ phức tạp thuật toán và chuẩn hóa Cơ sở Dữ liệu quan hệ 3NF.
+              </p>
+              <div class="stack-stage-skills">
+                <span class="skill-chip">C / C++</span>
+                <span class="skill-chip">Python OOP</span>
+                <span class="skill-chip">DSA Algorithms</span>
+                <span class="skill-chip">CSDL Chuẩn 3NF</span>
+                <span class="skill-chip">System Logic</span>
+              </div>
+            </article>
+
+            <!-- Card 1: 2025 -->
+            <article class="roadmap-stack-card" id="card-step-1" data-step="1" style="--card-index: 1;">
+              <div class="stack-card-header">
+                <div class="card-year-badge">
+                  <span class="year-num">2025</span>
+                  <span class="stage-tag tag-mastered">✓ LÀM CHỦ CÔNG NGHỆ</span>
+                </div>
+                <span class="card-phase-index">GIAI ĐOẠN 02 / 04</span>
+              </div>
+              <h3 class="stack-stage-title">Chuyên sâu Khai phá Dữ liệu & Học máy (Data & AI)</h3>
+              <p class="stack-stage-desc">
+                Chuyển dịch trọng tâm sang Data Engineering & Machine Learning: triển khai giải thuật Data Mining (Apriori, FP-Growth), huấn luyện mô hình Scikit-learn, nghiên cứu mạng nơ-ron tích chập (CNN) trên ảnh y tế DICOM và kiến trúc lưu trữ NoSQL 5 tầng.
+              </p>
+              <div class="stack-stage-skills">
+                <span class="skill-chip">Data Mining (Apriori)</span>
+                <span class="skill-chip">Scikit-learn ML</span>
+                <span class="skill-chip">Deep Learning CNN</span>
+                <span class="skill-chip">NoSQL 5 Tầng</span>
+                <span class="skill-chip">Feature Engineering</span>
+              </div>
+            </article>
+
+            <!-- Card 2: 2026 -->
+            <article class="roadmap-stack-card current-stage" id="card-step-2" data-step="2" style="--card-index: 2;">
+              <div class="stack-card-header">
+                <div class="card-year-badge">
+                  <span class="year-num cyan">2026</span>
+                  <span class="stage-tag tag-active">● ĐANG TĂNG TỐC</span>
+                </div>
+                <span class="card-phase-index">GIAI ĐOẠN 03 / 04 (HIỆN TẠI)</span>
+              </div>
+              <h3 class="stack-stage-title">Ứng dụng Thực tế & Tối ưu Production</h3>
+              <p class="stack-stage-desc">
+                Đưa giải pháp vào thực tế sản xuất: xây dựng Production Data Pipelines, tích hợp AI vào hệ thống fullstack, rèn luyện tư duy quản trị dự án kỹ thuật (Scrum/Agile), tối ưu hóa hiệu năng truy vấn và bảo vệ các đề tài khoa học ứng dụng.
+              </p>
+              <div class="stack-stage-skills">
+                <span class="skill-chip active">Production Pipeline</span>
+                <span class="skill-chip active">Fullstack AI Systems</span>
+                <span class="skill-chip active">Agile / Scrum</span>
+                <span class="skill-chip active">Query Tuning</span>
+                <span class="skill-chip active">Team Mentoring</span>
+              </div>
+            </article>
+
+            <!-- Card 3: Tương lai -->
+            <article class="roadmap-stack-card future-stage" id="card-step-3" data-step="3" style="--card-index: 3;">
+              <div class="stack-card-header">
+                <div class="card-year-badge">
+                  <span class="year-num emerald">Tương lai</span>
+                  <span class="stage-tag tag-future">★ MỤC TIÊU CHIẾN LƯỢC</span>
+                </div>
+                <span class="card-phase-index">GIAI ĐOẠN 04 / 04 (TẦM NHÌN)</span>
+              </div>
+              <h3 class="stack-stage-title">IT Project Manager (Technical Leadership)</h3>
+              <p class="stack-stage-desc">
+                Trở thành Nhà quản trị Dự án Công nghệ thông tin (IT Project Manager) có nền tảng kỹ thuật sâu sắc về Data & AI. Dẫn dắt các đội ngũ kỹ sư kiến tạo các giải pháp chuyển đổi số bền vững, cầu nối vững chắc giữa bài toán kinh doanh và năng lực công nghệ cao.
+              </p>
+              <div class="stack-stage-skills">
+                <span class="skill-chip future">IT Project Management</span>
+                <span class="skill-chip future">Data & AI Strategy</span>
+                <span class="skill-chip future">System Architecture</span>
+                <span class="skill-chip future">Cross-functional Team</span>
+                <span class="skill-chip future">Product Delivery</span>
+              </div>
+            </article>
+
           </div>
 
-          <div class="roadmap-card current tilt-card">
-            <span class="roadmap-year cyan">2026 (Hiện tại)</span>
-            <h3 class="roadmap-stage">Ứng dụng Thực tế</h3>
-            <p class="roadmap-desc">
-              Xây dựng Production Data Pipelines, tích hợp AI vào hệ thống fullstack, rèn luyện tư duy quản trị dự án kỹ thuật và dẫn dắt nhóm.
-            </p>
+          <!-- Bottom hint: Scroll guide -->
+          <div class="roadmap-scroll-hint" id="roadmap-scroll-hint" aria-hidden="true">
+            <span class="hint-text">Cuộn chuột để xem các giai đoạn lần lượt đè lên nhau</span>
+            <span class="hint-arrow">↓</span>
           </div>
 
-          <div class="roadmap-card tilt-card">
-            <span class="roadmap-year emerald">Tương lai</span>
-            <h3 class="roadmap-stage">IT Project Manager</h3>
-            <p class="roadmap-desc">
-              Dẫn dắt các đội ngũ kỹ thuật phát triển sản phẩm dữ liệu và AI chiến lược cho doanh nghiệp, đảm bảo tiến độ, kiến trúc và giá trị thực tiễn.
-            </p>
-          </div>
         </div>
       </section>
 

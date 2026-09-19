@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTerminalEmulator();
   initTechStackFilters();
   initSmoothScrollSpy();
+  initRoadmapStacking();
   initCopyCodeButtons();
   initMobileMenu();
 });
@@ -675,4 +676,168 @@ function initMobileMenu() {
       closeDrawer();
     }
   });
+}
+
+// --- 10. Roadmap Stacking Cards on Scroll (Thẻ đè lên nhau tuần tự khi cuộn) ---
+function initRoadmapStacking() {
+  const section = document.getElementById('roadmap');
+  if (!section) return;
+
+  const cards = Array.from(section.querySelectorAll('.roadmap-stack-card'));
+  const pills = Array.from(section.querySelectorAll('.roadmap-step-pill'));
+  const hint = document.getElementById('roadmap-scroll-hint');
+
+  if (!cards.length) return;
+
+  const totalCards = cards.length; // 4 cards: 2024, 2025, 2026, Tương lai
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function getStepOffset() {
+    return window.innerWidth <= 768 ? 20 : 28;
+  }
+
+  function updateStack() {
+    const rect = section.getBoundingClientRect();
+    const navHeight = 70;
+    const totalDist = section.offsetHeight - window.innerHeight;
+
+    if (totalDist <= 0) return;
+
+    // Normalize scroll progress through the pinned roadmap track: 0.0 to 1.0
+    const rawProgress = (navHeight - rect.top) / totalDist;
+    const progress = Math.max(0, Math.min(1, rawProgress));
+
+    const stepOffset = getStepOffset();
+    const numTransitions = totalCards - 1; // 3 transitions
+
+    cards.forEach((card, index) => {
+      // Base card (Index 0: 2024)
+      if (index === 0) {
+        if (prefersReduced) {
+          card.style.transform = 'none';
+          card.style.opacity = '1';
+          return;
+        }
+
+        // Slight scale and dimming as higher cards stack on top of it
+        const stackOverCount = progress * numTransitions; // 0 to 3
+        const scale = Math.max(0.88, 1 - stackOverCount * 0.035);
+        const brightness = Math.max(0.65, 1 - stackOverCount * 0.1);
+
+        card.style.transform = `translate3d(0, 0px, 0) scale(${scale.toFixed(3)})`;
+        card.style.filter = `brightness(${brightness.toFixed(2)})`;
+        card.style.opacity = '1';
+        card.style.zIndex = '1';
+        return;
+      }
+
+      // Subsequent cards (Index 1, 2, 3)
+      const startRange = (index - 1) / numTransitions;
+      const endRange = index / numTransitions;
+      const finalY = index * stepOffset;
+
+      if (prefersReduced) {
+        card.style.transform = `translate3d(0, ${finalY}px, 0)`;
+        card.style.opacity = progress >= startRange ? '1' : '0';
+        return;
+      }
+
+      if (progress < startRange) {
+        // Below viewport / waiting turn
+        card.style.transform = `translate3d(0, 120%, 0) scale(0.95)`;
+        card.style.opacity = '0';
+        card.style.filter = 'brightness(1)';
+        card.style.pointerEvents = 'none';
+      } else if (progress >= startRange && progress <= endRange) {
+        // Transitioning and stacking on top of previous cards
+        const t = (progress - startRange) / (endRange - startRange); // 0 to 1
+        
+        // Easing interpolation
+        const currentY = (1 - t) * 120;
+        const interpY = currentY > 0 
+          ? `calc(${currentY.toFixed(2)}% + ${finalY}px)`
+          : `${finalY}px`;
+
+        const scale = (0.95 + 0.05 * t).toFixed(3);
+        const opacity = Math.min(1, t * 2.2).toFixed(2);
+
+        card.style.transform = `translate3d(0, ${interpY}, 0) scale(${scale})`;
+        card.style.opacity = opacity;
+        card.style.filter = 'brightness(1)';
+        card.style.pointerEvents = 'auto';
+      } else {
+        // Fully stacked in place; subtle scale down as higher cards stack over it
+        const overProgress = (progress - endRange) * numTransitions;
+        const scale = Math.max(0.9, 1 - overProgress * 0.035).toFixed(3);
+        const brightness = Math.max(0.7, 1 - overProgress * 0.1).toFixed(2);
+
+        card.style.transform = `translate3d(0, ${finalY}px, 0) scale(${scale})`;
+        card.style.opacity = '1';
+        card.style.filter = `brightness(${brightness})`;
+        card.style.pointerEvents = 'auto';
+      }
+
+      card.style.zIndex = (index + 1).toString();
+    });
+
+    // Determine active stage pill (0, 1, 2, 3)
+    let activeIndex = 0;
+    if (progress < 0.2) activeIndex = 0;
+    else if (progress < 0.52) activeIndex = 1;
+    else if (progress < 0.85) activeIndex = 2;
+    else activeIndex = 3;
+
+    pills.forEach((pill, idx) => {
+      const isActive = idx === activeIndex;
+      pill.classList.toggle('active', isActive);
+      pill.setAttribute('aria-selected', isActive.toString());
+    });
+
+    // Update bottom guide hint
+    if (hint) {
+      const hintText = hint.querySelector('.hint-text');
+      if (hintText) {
+        if (progress >= 0.98) {
+          hintText.textContent = '✓ Toàn bộ hành trình đã hiển thị • Tiếp tục cuộn trang';
+        } else {
+          hintText.textContent = 'Cuộn chuột để xem các giai đoạn lần lượt đè lên nhau';
+        }
+      }
+    }
+  }
+
+  // Click pill to smoothly navigate to that stage's stacked point
+  pills.forEach((pill, idx) => {
+    pill.addEventListener('click', () => {
+      const totalDist = section.offsetHeight - window.innerHeight;
+      const targetRatio = idx / (totalCards - 1);
+      const targetScroll = section.offsetTop + targetRatio * totalDist + 10;
+
+      window.scrollTo({
+        top: targetScroll,
+        behavior: 'smooth'
+      });
+
+      if (window.cyberAudio) window.cyberAudio.playClick();
+    });
+  });
+
+  // Passive RAF scroll listener
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateStack();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    updateStack();
+  }, { passive: true });
+
+  // Initial trigger
+  updateStack();
 }
